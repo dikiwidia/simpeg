@@ -7,6 +7,11 @@ $ses = $this->session->userdata['user']
   <div class="menu_section">
     <h3>Menu Utama</h3>
     <ul class="nav side-menu">
+      <?php 
+        if($ses['level_user'] > 2){
+          echo '<li><a href="'.$url.'"><i class="fa fa-dashboard"></i>'.user_data('nama_user').'</a></li>';
+        } else {
+      ?>
       <li><a><i class="fa fa-user"></i> <?php echo user_data('nama_user');?> <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="<?php echo $url; ?>">Biodata</a></li>
@@ -16,34 +21,34 @@ $ses = $this->session->userdata['user']
           <li><a href="<?php echo $url; ?>user/akun">Pengaturan Akun</a></li>
         </ul>
       </li>
-      <?php if($ses['level_user'] > 0){?>
+      <?php } if($ses['level_user'] > 1){?>
       <li><a><i class="fa fa-users"></i> Karyawan & Dosen <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="<?php echo $url; ?>dospeg/karyawan">Master Data Karyawan</a></li>
-          <li><a href="<?php echo $url; ?>dospeg/dosen">Master Data Dosen</a></li>
-          <li><a href="<?php echo $url; ?>dospeg/jabkar">Jabatan Karyawan</a></li>
-          <li><a href="<?php echo $url; ?>dospeg/kinkar">Kinerja Karyawan</a></li>
-          <li><a href="<?php echo $url; ?>dospeg/cutikar">Pengajuan Cuti</a></li>
+          <li><a href="<?php echo $url; ?>dospeg/jabstruk">Jabatan Struktural</a></li>
+          <li><a href="<?php echo $url; ?>dospeg/tugas">Daftar Penugasan</a></li>
+          <li><a href="<?php echo $url; ?>dospeg/cuti">Daftar Cuti</a></li>
+          <li><a href="<?php echo $url; ?>dospeg/golgaji">Daftar Gaji</a></li>
         </ul>
       </li>
       <?php } if($ses['level_user'] > 1){ ?>
+      <li><a><i class="fa fa-database"></i> Master Data <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li><a href="<?php echo $url; ?>master/bio">Biodata</a></li>
+          <li><a href="<?php echo $url; ?>master/gaji">Gaji Golongan</a></li>
+          <li><a href="<?php echo $url; ?>master/tunjangan">Tunjangan</a></li>
+          <li><a href="<?php echo $url; ?>master/potongan">Potongan</a></li>
+          <li><a href="<?php echo $url; ?>master/jabstruk">Jabatan Struktural</a></li>
+          <li><a href="<?php echo $url; ?>master/unit">Unit Kerja</a></li>
+        </ul>
+      </li>
       <li><a><i class="fa fa-exchange"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="<?php echo $url; ?>trans/gajikar">Master Gaji Karyawan</a></li>
-          <li><a href="<?php echo $url; ?>trans/tunjkar">Master Tunjangan Karyawan</a></li>
-          <li><a href="<?php echo $url; ?>trans/potkar">Master Potongan Karyawan</a></li>
-          <li><a href="<?php echo $url; ?>trans/bayargaji">Transaksi Gaji Karyawan</a></li>
+          <li><a href="<?php echo $url; ?>trans/bgkar">Transaksi Gaji Karyawan</a></li>
+          <li><a href="<?php echo $url; ?>trans/bgdos">Transaksi Gaji Dosen</a></li>
           <li><a href="<?php echo $url; ?>trans/riwayat">Riwayat Transaksi</a></li>
         </ul>
       </li>
       <?php } if($ses['level_user'] > 2) {?>
-      <li><a><i class="fa fa-institution"></i> Jabatan & Unit <span class="fa fa-chevron-down"></span></a>
-        <ul class="nav child_menu">
-          <li><a href="<?php echo $url; ?>jabnit/jabatan">Master Data Jabatan</a></li>
-          <li><a href="<?php echo $url; ?>jabnit/unit">Master Data Unit</a></li>
-        </ul>
-      </li>
-      <?php } if($ses['level_user'] > 4) {?>
       <li><a><i class="fa fa-cog"></i> Pengaturan <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="<?php echo $url; ?>pengaturan/">Nama Perusahaan</a></li>

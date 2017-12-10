@@ -8,6 +8,7 @@ speg_jabatan_karyawan => untuk riwayat jabatan karyawan
 CLASS
 --------------------
 DASHBOARD = A1
+MASTER = A2
 
 
 MENU

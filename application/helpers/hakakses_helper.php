@@ -17,7 +17,7 @@ function hak_akses($arg){
     //$q minimal 1
     if($q > $arg){
         //can access
-        return $q;
+       // return $q;
     } else {
         redirect('/');
     }
