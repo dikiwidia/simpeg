@@ -1,0 +1,39 @@
+Rev Gol Gaji untuk menentukan besaran gaji karyawan yang sudah diedit agar tidak mempengaruhi transaksi lawas
+
+Cur Gol Gaji untuk memberikan gambaran kenaikan gaji yang dilakukan oleh administrator
+
+speg_golgaji_karyawan => untuk riwayat kenaikan gaji
+speg_jabatan_karyawan => untuk riwayat jabatan karyawan
+
+CLASS
+--------------------
+DASHBOARD = A1
+
+
+MENU
+--------------------
+Pengguna (0)
+- Biodata
+- Penugasan
+- Gaji
+- Cuti
+
+Dosen dan Karyawan (>0)
+- Master Data Karyawan
+- Master Data Dosen
+- Jabatan Karyawan
+- Kinerja Karyawan
+- Pengajuan Cuti
+
+Transaksi Gaji (>1)
+- Master Gaji Karyawan
+- Master Tunjangan Karyawan
+- Master Potongan Karyawan
+- Transaksi Gaji
+- Riwayat Transaksi
+
+Jabatan dan Unit Kerja (>0)
+- Master Data Jabatan
+- Master Data Unit
+
+Pengaturan (>2)
