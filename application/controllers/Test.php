@@ -49,5 +49,10 @@ class Test extends CI_Controller {
             $this->image_lib->resize();
             echo $this->image_lib->display_errors();
         }
+
+        public function boole(){
+                $a = $this->read_cond_bool('speg_user',array('id_biodata'=>2))
+                echo $a; 
+        }
 }
 ?>

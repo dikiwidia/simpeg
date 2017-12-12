@@ -11,4 +11,12 @@ function ifempty($cond,$get = "No Data"){
     return $result;
 }
 
+function ifemptydate($cond,$get = "No Data"){
+    if($cond == "0000-00-00 00:00:00"){
+        $r = $get;
+    } else {
+        $r = $cond;
+    }
+    return $r;
+}
 ?>

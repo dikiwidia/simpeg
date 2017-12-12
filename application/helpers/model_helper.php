@@ -14,4 +14,20 @@ function read_custom_id($table,$cond,$get){
     return $r[0][$get];
 }
 
+function read_custom_cond_bool($table,$arr){
+    $ci =& get_instance();
+    $ci->load->model('crud');
+    
+    $f = $ci->crud->read_cond_bool($table,$arr);
+    return $f;
+}
+
+function read_custom_cond($table,$arr,$get){
+    $ci =& get_instance();
+    $ci->load->model('crud');
+
+    $r = $ci->crud->read_cond($table,$arr);
+    return $r[0][$get];
+}
+
 ?>

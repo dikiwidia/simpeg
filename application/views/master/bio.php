@@ -30,11 +30,17 @@
                                 <?php
                                     $i = 1;
                                     foreach($biodata as $b){
-                                        if($b['id_user'] == 0){
-                                            $html = '<a class="link" data-toggle="modal" data-target=".tambah-user">* tambah</a>';
+
+                                        $c = read_custom_cond_bool('speg_user',array('id_biodata'=>$b['id_biodata']));
+
+                                        if($c == FALSE){
+                                            $html = '<a class="link adduser" data-toggle="modal" data-target=".tambah-user" data-id="'.$b['id_biodata'].'">* tambah</a>';
+                                            $html_2 = "-";
                                         } else {
-                                            $html = read_custom_id('speg_user',$b['id_user'],'nama_user');
+                                            $html = read_custom_cond('speg_user',array('id_biodata'=>$b['id_biodata']),'nama_user');
+                                            $html_2 = ifemptydate(read_custom_cond('speg_user',array('id_biodata'=>$b['id_biodata']),'tmasuk_user'),'<label class="label label-success">pengguna baru</label>');
                                         }
+                                
                                         echo "<tr>";
                                         echo "<td>".$i++."</td>";
                                         echo "<td>".$b['nama_biodata']."</td>";
@@ -42,7 +48,7 @@
                                         echo "<td>".ifempty($b['surel_biodata'],'-')."</td>";
                                         echo "<td>".ifempty($b['kontak_biodata'],'-')."</td>";
                                         echo "<td>".$html."</td>";
-                                        echo "<td></td>";
+                                        echo "<td>".$html_2."</td>";
                                         echo "<td></td>";
                                         echo "</tr>";
                                     }
@@ -57,6 +63,10 @@
 </div>
 <!-- /page content -->
 <script>
+$(document).on("click", ".adduser", function () {
+    var UserId = $(this).data('id');
+    $(".modal-footer #UserID").val( UserId );
+});
 $(function () {
 	var t = $('#datatable-responsive').DataTable({
 		"paging": true,
@@ -98,7 +108,7 @@ $(function () {
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Lengkap *</label>
                     <div class="col-md- col-sm-5 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Masukkan Nama Lengkap (Tanpa Gelar Akademik)" name="nama_biodata" maxlength="50" required>
+                        <input type="text" class="form-control a" placeholder="Masukkan Nama Lengkap (Tanpa Gelar Akademik)" name="nama_biodata" maxlength="50" required>
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                 </div>
@@ -188,7 +198,7 @@ $(function () {
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Pengguna *</label>
                     <div class="col-md- col-sm-5 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Masukkan Nama Pengguna" name="nama_user" maxlength="10" required>
+                        <input type="text" class="form-control" placeholder="Masukkan Nama Pengguna" name="nama_user" value="" maxlength="10" required>
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                 </div>
@@ -212,8 +222,9 @@ $(function () {
                 <!-- /FORM -->
             </div>
             <div class="modal-footer">
+                <input type="hidden" id="UserID" name="id_biodata" value="" />
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <input class="btn btn-primary" type="submit" value="Simpan" />
+                <input class="btn btn-success" type="submit" value="Simpan" />
             </div>
             
             <?php echo form_close(); ?>

@@ -42,6 +42,7 @@ class Login extends CI_Controller {
 				'level_user'	=> $d[0]['level_user'],
 				'tmasuk_user'	=> date("Y-m-d H:i:s"),
 				'phscr_user'	=> $d[0]['phscr_user'],
+				'id_biodata'	=> $d[0]['id_biodata'],
 				'status_user'	=> $d[0]['status_user']
 			);
 			
