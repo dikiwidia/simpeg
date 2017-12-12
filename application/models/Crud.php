@@ -10,6 +10,7 @@ class Crud extends CI_Model {
 		- $arr		= data bentuk array
 		---------------------------------*/
 		$this->db->insert($table,$arr);
+		$this->create_log_create($table,$arr);
     }
     
 	public function delete($table,$arr) {
@@ -126,9 +127,27 @@ class Crud extends CI_Model {
 		}
     }
     
-    public function read_custom($query){
+    public function read_query($query){
         $q = $this->db->query($query);
         $r = $q->result_array();
         return $r;
-    }
+	}
+	
+	public function create_log_create($table,$get){
+		$a = $this->read_cond($table,$get);
+		$b = $this->read_fields($table);
+		$v = $b[0];
+		$arr = array(
+			'id_user'		 => user_data('id_user'),
+			'tblname_log'	 => $table,
+			'id_tblname_log' => $a[0][$v],
+			'date_log'		 => date("Y-m-d H:i:s")
+		);
+		$this->db->insert('speg_log',$arr);
+	}
+
+	public function read_fields($table){
+		$r = $this->db->list_fields($table);
+		return $r;
+	}
 }

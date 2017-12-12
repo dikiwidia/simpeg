@@ -9,7 +9,7 @@ $ses = $this->session->userdata['user']
     <ul class="nav side-menu">
       <?php 
         if($ses['level_user'] > 2){
-          echo '<li><a href="'.$url.'"><i class="fa fa-dashboard"></i>'.user_data('nama_user').'</a></li>';
+          echo '<li><a href="'.$url.'"><i class="fa fa-dashboard"></i> '.user_data('nama_user').'</a></li>';
         } else {
       ?>
       <li><a><i class="fa fa-user"></i> <?php echo user_data('nama_user');?> <span class="fa fa-chevron-down"></span></a>
