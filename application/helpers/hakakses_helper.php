@@ -14,7 +14,7 @@ function user_data($arg){
 function hak_akses($arg){
     $ci =& get_instance();
     $q = $ci->session->userdata['user']['level_user'];
-    //$q minimal 1
+    //$q minimal 1 2>1
     if($q > $arg){
         //can access
        // return $q;

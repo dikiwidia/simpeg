@@ -40,16 +40,16 @@
                                             $html = read_custom_cond('speg_user',array('id_biodata'=>$b['id_biodata']),'nama_user');
                                             $html_2 = ifemptydate(read_custom_cond('speg_user',array('id_biodata'=>$b['id_biodata']),'tmasuk_user'),'<label class="label label-success">pengguna baru</label>');
                                         }
-                                
+
                                         echo "<tr>";
                                         echo "<td>".$i++."</td>";
                                         echo "<td>".$b['nama_biodata']."</td>";
-                                        echo "<td>".$b['tmplahir_biodata']."</td>";
+                                        echo "<td>".$b['tmplahir_biodata'].", ".date_id($b['tglahir_biodata'])."</td>";
                                         echo "<td>".ifempty($b['surel_biodata'],'-')."</td>";
                                         echo "<td>".ifempty($b['kontak_biodata'],'-')."</td>";
                                         echo "<td>".$html."</td>";
                                         echo "<td>".$html_2."</td>";
-                                        echo "<td></td>";
+                                        echo '<td><a class="last" href="'.base_url().'master/bio/edit/'.$b['id_biodata'].'">Ubah Biodata</a></td>';
                                         echo "</tr>";
                                     }
                                 ?>
@@ -67,6 +67,7 @@ $(document).on("click", ".adduser", function () {
     var UserId = $(this).data('id');
     $(".modal-footer #UserID").val( UserId );
 });
+
 $(function () {
 	var t = $('#datatable-responsive').DataTable({
 		"paging": true,
@@ -88,6 +89,21 @@ $(function () {
             cell.innerHTML = i+1;
         } );
     } ).draw();
+});
+
+$('#namaPengguna').keyup(function() {
+    $.ajax({
+        url: <?php echo base_url().'ajax/checking_username'; ?>,
+        type: 'post',
+        data: 'v='+ $(this).val(),
+        success: function(data) {
+            if(data == TRUE){
+                $('#result').val('Username telah digunakan');
+            }else{
+                $('#result').val('Username tersedia');
+            }
+        });
+    });
 });
 </script>
 <!-- Large modal -->
@@ -198,9 +214,9 @@ $(function () {
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Pengguna *</label>
                     <div class="col-md- col-sm-5 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Masukkan Nama Pengguna" name="nama_user" value="" maxlength="10" required>
+                        <input type="text" id="namaPengguna" class="form-control" placeholder="Masukkan Nama Pengguna" name="nama_user" value="" maxlength="10" required>
                     </div>
-                    <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
+                    <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small id="result">Wajib diisi</small></label>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Kata Sandi *</label>

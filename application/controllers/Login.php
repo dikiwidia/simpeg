@@ -46,7 +46,7 @@ class Login extends CI_Controller {
 				'status_user'	=> $d[0]['status_user']
 			);
 			
-			$this->crud->update($this->table,array('tmasuk_user' => date("Y-m-d H:i:s")),array('id_user' => $d[0]['id_user']));
+			$this->crud->update($this->table,array('tmasuk_user' => date("Y-m-d H:i:s")),array('id_user' => $d[0]['id_user']),$d[0]['id_user']);
 
 			// Add user data in session
 			$this->session->set_userdata('user', $session_data);
