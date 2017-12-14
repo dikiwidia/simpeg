@@ -68,4 +68,59 @@ function date_id($arg = "1901-01-01"){
     $r = $day.' '.$mo.' '.$year;
     return $r;
 }
+
+function datetime_id($arg = "1901-01-01 00:00:00"){
+    $param    = explode(' ',$arg);
+    $param2   = explode('-',$param[0]);
+    $day 	  = $param2[2];
+    $month 	  = $param2[1];
+    $year 	  = $param2[0];
+    
+    switch ($month){
+        case 1: 
+            $mo = "Januari";
+            break;
+        case 2:
+            $mo = "Februari";
+            break;
+        case 3:
+            $mo = "Maret";
+            break;
+        case 4:
+            $mo = "April";
+            break;
+        case 5:
+            $mo = "Mei";
+            break;
+        case 6:
+            $mo = "Juni";
+            break;
+        case 7:
+            $mo = "Juli";
+            break;
+        case 8:
+            $mo = "Agustus";
+            break;
+        case 9:
+            $mo = "September";
+            break;
+        case 10:
+            $mo = "Oktober";
+            break;
+        case 11:
+            $mo = "November";
+            break;
+        case 12:
+            $mo = "Desember";
+            break;
+    }
+
+    $r = $day.' '.$mo.' '.$year.' '.$param[1];
+    return $r;
+}
+function date_validation($date, $format = 'Y-m-d')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}
 ?>

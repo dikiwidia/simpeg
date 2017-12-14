@@ -65,8 +65,12 @@ $url = base_url();
     <script src="<?php echo $url; ?>vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- jQuery Smart Wizard -->
     <script src="<?php echo $url; ?>vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
-	<!-- jquery.inputmask -->
+	  <!-- jquery.inputmask -->
     <script src="<?php echo $url; ?>vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <!-- jquery.maskMoney -->
+    <script src="<?php echo $url; ?>vendors/jquery.maskmoney/jquery.maskmoney.js"></script>
+    <!-- jquery.autonumeric -->
+    <script src="<?php echo $url; ?>vendors/jquery.autonumeric/autoNumeric.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo $url; ?>build/js/custom.min.js"></script>

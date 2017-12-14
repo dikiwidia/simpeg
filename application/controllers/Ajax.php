@@ -30,14 +30,13 @@ class Ajax extends CI_Controller {
     }
 
     public function checking_username(){
-        $v_int = $this->input->post('v');
+        //if($this->input->post('v') == NULL){redirect(base_url());}
+        $v_int = $this->input->post('nama_user');
         $table = 'speg_user';
-
         $arr   = array(
-            'nama_user' => $v_int
+                'nama_user' => $v_int
         );
-
-        $r     = $this->crud->read_cond_bool($table,$arr);
-        return $r;
+        $r = $this->crud->read_numrows($table,$arr);      
+        echo $r;
     }
 }
