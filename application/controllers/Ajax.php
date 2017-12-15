@@ -39,4 +39,20 @@ class Ajax extends CI_Controller {
         $r = $this->crud->read_numrows($table,$arr);      
         echo $r;
     }
+
+    public function checking(){
+        if($this->input->post('tbl_name') == NULL){redirect(base_url());}
+        $v_1 = $this->input->post('tbl_name');
+        $v_2 = $this->input->post('field');
+        $v_3 = $this->input->post('value');
+        //$v_1 = "speg_data_golgaji";
+        //$v_2 = "kode_golgaji";
+        //$v_3 = "G-1A";
+
+        $arr   = array(
+                $v_2 => $v_3
+        );
+        $r = $this->crud->read_numrows($v_1,$arr);      
+        echo $r;
+    }
 }

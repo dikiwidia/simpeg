@@ -9,7 +9,7 @@ class Master extends CI_Controller {
 	* NOTES   : A3
     */
 
-	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji;
+	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan;
 
 	public function __construct() {
 	parent::__construct();
@@ -18,6 +18,7 @@ class Master extends CI_Controller {
 		$this->speg_biodata 		= 'speg_biodata';
 		$this->speg_user 			= 'speg_user';
 		$this->speg_data_golgaji 	= 'speg_data_golgaji';
+		$this->speg_data_tunjangan 	= 'speg_data_tunjangan';
     }
     
 	public function index(){
@@ -109,6 +110,8 @@ class Master extends CI_Controller {
 	public function gaji(){
 		if($this->uri->segment(3) == "create"){
 			if(empty($this->input->post('kode_golgaji'))){redirect('/master/gaji');}
+			$r = $this->crud->read_numrows($this->speg_data_golgaji,array('kode_golgaji'=>$this->input->post('kode_golgaji')));
+			if($r >= 1){redirect('/master/gaji');}
 			$arr = array(
 				'kode_golgaji' 		=> $this->input->post('kode_golgaji'),
 				'nama_golgaji'  	=> $this->input->post('nama_golgaji'),
@@ -127,32 +130,64 @@ class Master extends CI_Controller {
 			
 			if($this->crud->read_cond_bool($this->speg_data_golgaji,$arr) == FALSE){redirect('/master/gaji');}
 			
-			$data['gaji']	= $this->crud->read_cond($this->speg_data_golgaji,$arr);
+			$data['edit']	= $this->crud->read_cond($this->speg_data_golgaji,$arr);
 			
 			$this->template->display('master/gaji_update',$data);
 		} elseif($this->uri->segment(3) == "update"){
-			if(empty($this->input->post('nama_biodata')) && empty($this->uri->segment(4))){redirect('/master/bio');}
-			if(date_validation($this->input->post('tglahir_biodata'))==FALSE){$dob = "1901-01-01";}
-			else{$dob = $this->input->post('tglahir_biodata');}
-			$arr1 = array(
-				'nama_biodata' 		=> $this->input->post('nama_biodata'),
-				'jkelamin_biodata'  => $this->input->post('jkelamin_biodata'),
-				'tmplahir_biodata'  => $this->input->post('tmplahir_biodata'),
-				'tglahir_biodata' 	=> $dob,
-				'alamat_biodata' 	=> $this->input->post('alamat_biodata'),
-				'kontak_biodata' 	=> $this->input->post('kontak_biodata'),
-				'surel_biodata' 	=> $this->input->post('surel_biodata'),
-				'id_agama'	 		=> $this->input->post('id_agama')
-			);
-			$arr2 = array(
-				'id_biodata'		=> $this->uri->segment(4)
+			if($this->input->post('kode_golgaji') && empty($this->uri->segment(4))){redirect('/master/gaji');}
+			$arr = array(
+				'kode_golgaji' 		=> $this->input->post('kode_golgaji'),
+				'nama_golgaji'  	=> $this->input->post('nama_golgaji'),
+				'nominal_golgaji'   => $this->input->post('nominal_golgaji'),
+				'rev_golgaji'	 	=> $this->input->post('rev_golgaji')+1
 			);
 			
-			$this->crud->update($this->speg_biodata,$arr1,$arr2,$this->uri->segment(4));
-			redirect('/master/bio');
+			$this->crud->create($this->speg_data_golgaji,$arr);
+			redirect('/master/gaji');
 		} else {
-			$data['gaji'] = $this->crud->read($this->speg_data_golgaji);
+			$q = 'SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev';
+			$data['gaji'] = $this->crud->read_query($q);
 			$this->template->display('master/gaji',$data);
+		}
+	}
+
+	public function tunjangan(){
+		if($this->uri->segment(3) == "create"){
+			if(empty($this->input->post('nama_tunjangan'))){redirect('/master/tunjangan');}
+			$arr = array(
+				'nama_tunjangan' 	=> $this->input->post('nama_tunjangan'),
+				'ket_tunjangan'		=> $this->input->post('ket_tunjangan')
+			);
+			
+			$this->crud->create($this->speg_data_tunjangan,$arr);
+			redirect('/master/tunjangan');
+		} elseif($this->uri->segment(3) == "edit"){
+			if(empty($this->uri->segment(4))){redirect('/master/tunjangan');}
+			
+			$arr = array(
+				'id_tunjangan' 		=> $this->uri->segment(4)
+			);
+			
+			if($this->crud->read_cond_bool($this->speg_data_tunjangan,$arr) == FALSE){redirect('/master/bio');}
+			$data['edit']	= $this->crud->read_cond($this->speg_data_tunjangan,$arr);
+			
+			$this->template->display('master/tunjangan_update',$data);
+		} elseif($this->uri->segment(3) == "update"){
+			if(empty($this->input->post('nama_tunjangan')) && empty($this->uri->segment(4))){redirect('/master/tunjangan');}
+			$arr1 = array(
+				'nama_tunjangan' 	=> $this->input->post('nama_tunjangan'),
+				'ket_tunjangan'		=> $this->input->post('ket_tunjangan')
+			);
+			$arr2 = array(
+				'id_tunjangan'		=> $this->uri->segment(4)
+			);
+			
+			$this->crud->update($this->speg_data_tunjangan,$arr1,$arr2,$this->uri->segment(4));
+			redirect('/master/tunjangan');
+		} else {
+			$data['get'] 	= $this->crud->read($this->speg_data_tunjangan);
+			
+			$this->template->display('master/tunjangan',$data);
 		}
 	}
 
