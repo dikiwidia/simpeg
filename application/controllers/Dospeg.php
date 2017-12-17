@@ -1,15 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Master extends CI_Controller {
+class Dospeg extends CI_Controller {
 
 	/*
-	* MASTER CLASS
+	* DOSPEG CLASS
 	* AUTHOR  : MOCH DIKI WIDIANTO
-	* NOTES   : A3
+	* NOTES   : 
     */
 
-	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan;
+	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan, $speg_jabatan_karyawan;
 
 	public function __construct() {
 	parent::__construct();
@@ -21,15 +21,22 @@ class Master extends CI_Controller {
 		$this->speg_data_tunjangan 	= 'speg_data_tunjangan';
 		$this->speg_data_potongan 	= 'speg_data_potongan';
 		$this->speg_data_unit	 	= 'speg_data_unit';
-		$this->speg_data_jabatan 	= 'speg_data_jabatan';
+        $this->speg_data_jabatan 	= 'speg_data_jabatan';
+        $this->speg_jabatan_karyawan= 'speg_jabatan_karyawan';
     }
     
 	public function index(){
-		redirect('/master/bio');
+		
     }
     
-    public function bio(){
-		if($this->uri->segment(3) == "create"){
+    public function jabstruk(){
+		if($this->uri->segment(3) == "new"){
+            $data['edit_bio']	= $this->crud->read_cond($this->speg_biodata,$arr);
+			$data['agama'] 		= $this->crud->read($this->speg_agama);
+			
+			$this->template->display('dospeg/bio_update',$data);
+			//redirect('/dospeg/jabstruk');
+		}elseif($this->uri->segment(3) == "create"){
 			if(empty($this->input->post('nama_biodata'))){redirect('/master/bio');}
 			if(date_validation($this->input->post('tglahir_biodata'))==FALSE){$dob = "1901-01-01";}
 			else{$dob = $this->input->post('tglahir_biodata');}
@@ -79,11 +86,10 @@ class Master extends CI_Controller {
 			
 			$this->crud->update($this->speg_biodata,$arr1,$arr2,$this->uri->segment(4));
 			redirect('/master/bio');
-		} else {
-			$data['agama'] 		= $this->crud->read($this->speg_agama);
-			$data['biodata'] 	= $this->crud->read($this->speg_biodata);
+		}  else {
+			$data['get'] = $this->crud->read($this->speg_jabatan_karyawan);
 			
-			$this->template->display('master/bio',$data);
+			$this->template->display('dospeg/jabstruk',$data);
 		}
 	}
 

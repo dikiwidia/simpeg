@@ -22,8 +22,9 @@ $ses = $this->session->userdata['user']
         </ul>
       </li>
       <?php } if($ses['level_user'] > 1){?>
-      <li><a><i class="fa fa-users"></i> Karyawan & Dosen <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-users"></i> Karyawan<span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
+          <li><a href="<?php echo $url; ?>dospeg/angkat">Angkat Karyawan</a></li>
           <li><a href="<?php echo $url; ?>dospeg/jabstruk">Jabatan Struktural</a></li>
           <li><a href="<?php echo $url; ?>dospeg/tugas">Daftar Penugasan</a></li>
           <li><a href="<?php echo $url; ?>dospeg/cuti">Daftar Cuti</a></li>
