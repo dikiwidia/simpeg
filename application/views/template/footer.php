@@ -62,7 +62,9 @@ $url = base_url();
     <script src="<?php echo $url; ?>vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="<?php echo $url; ?>vendors/moment/min/moment.min.js"></script>
-    <script src="<?php echo $url; ?>vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="<?php echo $url; ?>vendors/bootstrap-daterangepicker/daterangepicker.js"></script> 
+    <!-- bootstrap-datetimepicker -->
+    <script src="<?php echo $url; ?>vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- jQuery Smart Wizard -->
     <script src="<?php echo $url; ?>vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 	  <!-- jquery.inputmask -->

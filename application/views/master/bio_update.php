@@ -16,28 +16,28 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Lengkap *</label>
                             <div class="col-md- col-sm-5 col-xs-12">
-                                <input type="text" class="form-control a" placeholder="Masukkan Nama Lengkap (Tanpa Gelar Akademik)" name="nama_biodata" value="<?php echo $edit_bio[0]['nama_biodata']; ?>" maxlength="50" required>
+                                <input type="text" class="form-control a" placeholder="Masukkan Nama Lengkap (Tanpa Gelar Akademik)" name="nama_biodata" value="<?php echo $edit_bio[0]['nama_biodata']; ?>" maxlength="50" required />
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Tempat Lahir *</label>
                             <div class="col-md-5 col-sm-5 col-xs-12">
-                                <input type="text" class="form-control" placeholder="Masukkan Tempat Lahir" name="tmplahir_biodata" value="<?php echo $edit_bio[0]['tmplahir_biodata']; ?>" maxlength="50" required>
+                                <input type="text" class="form-control" placeholder="Masukkan Tempat Lahir" name="tmplahir_biodata" value="<?php echo $edit_bio[0]['tmplahir_biodata']; ?>" maxlength="50" required />
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Lahir *</label>
                             <div class="col-md-5 col-sm-5 col-xs-12">
-                                <input type="text" class="form-control" data-inputmask="'mask': '9999-99-99'" placeholder="e.g. 1995-10-26" value="<?php echo $edit_bio[0]['tglahir_biodata']; ?>" name="tglahir_biodata" required/>
+                                <input type="text" class="form-control" data-inputmask="'mask': '9999-99-99'" placeholder="e.g. 1995-10-26" value="<?php echo $edit_bio[0]['tglahir_biodata']; ?>" name="tglahir_biodata" required />
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Kelamin *</label>
                             <div class="col-md-5 col-sm-5 col-xs-12">
-                                <select class="form-control" name="jkelamin_biodata" required/>
+                                <select class="form-control" name="jkelamin_biodata" required>
                                     <option value="L" <?php echo $r = ($edit_bio[0]['jkelamin_biodata'] == 'L') ? 'selected="selected"' : ''; ?>>Laki-Laki</option>
                                     <option value="P" <?php echo $r = ($edit_bio[0]['jkelamin_biodata'] == 'P') ? 'selected="selected"' : ''; ?>>Perempuan</option>
                                 </select>
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Agama *</label>
                             <div class="col-md-5 col-sm-5 col-xs-12">
-                                <select class="form-control" name="id_agama" required/>
+                                <select class="form-control" name="id_agama" required>
                                     <?php 
                                         foreach ($agama as $agama){
                                             $r = ($edit_bio[0]['id_agama'] == $agama["id_agama"]) ? 'selected="selected"' : '';

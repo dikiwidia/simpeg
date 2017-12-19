@@ -39,12 +39,12 @@
                                         } else {
                                             $html = read_custom_cond('speg_user',array('id_biodata'=>$b['id_biodata']),'nama_user');
 
-                                            $k = ifemptydate(read_custom_cond('speg_user',array('id_biodata'=>$b['id_biodata']),'tmasuk_user'),'x');
+                                            $k = ifemptydatetime(read_custom_cond('speg_user',array('id_biodata'=>$b['id_biodata']),'tmasuk_user'),'x');
                                             
                                             if($k == "x"){
                                                 $html_2 = '<label class="label label-success">pengguna baru</label>';
                                             } else {
-                                                $html_2 = datetime_id($k);
+                                                $html_2 = datetime_id(read_custom_cond('speg_user',array('id_biodata'=>$b['id_biodata']),'tmasuk_user'));
                                             }                                            
                                         }
 

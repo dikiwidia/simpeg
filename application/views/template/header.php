@@ -29,6 +29,8 @@ $ses = $this->session->userdata['user']
     <link href="<?php echo $url; ?>vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
     <link href="<?php echo $url; ?>vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-datetimepicker -->
+    <link href="<?php echo $url; ?>vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo $url; ?>vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 	<!-- Datatables -->
