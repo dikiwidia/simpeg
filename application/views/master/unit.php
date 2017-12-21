@@ -17,6 +17,7 @@
 							<thead>
 								<tr>
 									<th>No</th>
+									<th>Kode Unit</th>
 									<th>Deskripsi</th>
 									<th>Keterangan</th>
 									<th>Opsi</th>
@@ -28,6 +29,7 @@
                                     foreach($get as $b){
                                         echo "<tr>";
                                         echo "<td>".$i++."</td>";
+                                        echo "<td>".$b['kode_unit']."</td>";
                                         echo "<td>".$b['nama_unit']."</td>";
                                         echo "<td>".$b['ket_unit']."</td>";
                                         echo '<td><a class="link" href="'.base_url().'master/unit/edit/'.$b['id_unit'].'">Ubah</a></td>';
@@ -84,7 +86,14 @@ $(document).ready(function(){
             <div class="modal-body">
                 <!-- FORM -->
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Deskripsi Potongan *</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Kode Unit *</label>
+                    <div class="col-md- col-sm-5 col-xs-12">
+                        <input type="text" class="form-control" placeholder="Masukkan Kode Unit Kerja (Non Spasi)" name="kode_unit" maxlength="10" required>
+                    </div>
+                    <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Deskripsi Unit Kerja *</label>
                     <div class="col-md- col-sm-5 col-xs-12">
                         <input type="text" class="form-control" placeholder="Masukkan Deskripsi Unit Kerja" name="nama_unit" maxlength="50" required>
                     </div>

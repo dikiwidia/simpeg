@@ -113,10 +113,11 @@ class Master extends CI_Controller {
 	public function gaji(){
 		if($this->uri->segment(3) == "create"){
 			if(empty($this->input->post('kode_golgaji'))){redirect('/master/gaji');}
-			$r = $this->crud->read_numrows($this->speg_data_golgaji,array('kode_golgaji'=>$this->input->post('kode_golgaji')));
+			$kgaji = clean($this->input->post('kode_golgaji'));
+			$r = $this->crud->read_numrows($this->speg_data_golgaji,array('kode_golgaji'=>$kgaji));
 			if($r >= 1){redirect('/master/gaji');}
 			$arr = array(
-				'kode_golgaji' 		=> $this->input->post('kode_golgaji'),
+				'kode_golgaji' 		=> $kgaji,
 				'nama_golgaji'  	=> $this->input->post('nama_golgaji'),
 				'nominal_golgaji'   => $this->input->post('nominal_golgaji'),
 				'rev_golgaji'	 	=> 0
@@ -278,8 +279,12 @@ class Master extends CI_Controller {
 
 	public function unit(){
 		if($this->uri->segment(3) == "create"){
-			if(empty($this->input->post('nama_unit'))){redirect('/master/unit');}
+			if(empty($this->input->post('kode_unit'))){redirect('/master/unit');}
+			$kunit = clean($this->input->post('kode_unit'));
+			$r = $this->crud->read_numrows($this->speg_data_unit,array('kode_unit'=>$kunit));
+			if($r >= 1){redirect('/master/unit');}
 			$arr = array(
+				'kode_unit' 	=> $kunit,
 				'nama_unit' 	=> $this->input->post('nama_unit'),
 				'ket_unit'		=> $this->input->post('ket_unit')
 			);

@@ -6,13 +6,25 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Jabatan Struktural<small>Semua</small></h2>
+                    <h2>Jabatan Struktural<small><?php echo $title; ?></small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
-                    <i class="fa fa-plus"></i> Tambah
-                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sort"></i> Sortir <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <?php 
+                                foreach($unit as $l){
+                                    echo '<li><a href="'.base_url().'karyawan/jabstruk/sort/'.$l['kode_unit'].'">'.$l['nama_unit'].'</a></li>';
+                                }
+                            ?>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<?php echo base_url().'karyawan/jabstruk'; ?>">Kembali</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <a href="<?php echo base_url().'karyawan/jabstruk/new'; ?>"class="btn btn-success "><i class="fa fa-plus"></i> Baru</a>
+                    </div>
                     <table id="datatable-responsive" class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -31,16 +43,29 @@
                             <?php
                                 $i = 1;
                                 foreach($get as $b){
+                                    //nama
+                                    $o = read_custom_id('speg_data_karyawan',$b['id_karyawan'],'id_biodata');
+                                    $p = read_custom_id_ifempty('speg_biodata',$o,'nama_biodata','<span class="label label-danger">(Master Biodata Dihapus)</span>');
+
+                                    //unit
+                                    $q = read_custom_id_ifempty('speg_data_unit',$b['id_unit'],'nama_unit','<span class="label label-danger">(Master Unit Dihapus)</span>');
+
+                                    //jabatan
+                                    $r = read_custom_id_ifempty('speg_data_jabatan',$b['id_jabatan'],'nama_jabatan','<span class="label label-danger">(Master Jabatan Dihapus)</span>');
+
+                                    //status
+                                    if($b['status_jabatan_karyawan'] == 'Y'){$s = '<span class="label label-success">Aktif</span>';}else{$s = '<span class="label label-primary">Nonaktif</span>';}
+
                                     echo "<tr>";
                                     echo "<td>".$i++."</td>";
-                                    echo "<td>".$b['id_']."</td>";
-                                    echo "<td>".$b['level_jabatan']."</td>";
-                                    echo "<td>".$b['nama_jabatan']."</td>";
-                                    echo "<td>".$b['level_jabatan']."</td>";
-                                    echo "<td>".$b['nama_jabatan']."</td>";
-                                    echo "<td>".$b['level_jabatan']."</td>";
-                                    echo "<td>".$b['ket_jabatan']."</td>";
-                                    echo '<td><a class="link" href="'.base_url().'master/jabstruk/edit/'.$b['id_jabatan'].'">Ubah</a></td>';
+                                    echo "<td>".$p."</td>";
+                                    echo "<td>".$q."</td>";
+                                    echo "<td>".$r."</td>";
+                                    echo "<td>".$b['nosk_jabatan_karyawan']."</td>";
+                                    echo "<td>".date_id(ifemptydate($b['tgl_m_jabatan_karyawan'],'-'))."</td>";
+                                    echo "<td>".date_id(ifemptydate($b['tgl_s_jabatan_karyawan'],'-'))."</td>";
+                                    echo "<td>".$s."</td>";
+                                    echo '<td><a class="link" href="'.base_url().'master/jabstruk/edit/'.$b['id_jabatan_karyawan'].'">Ubah</a></td>';
                                     echo "</tr>";
                                 }
                             ?>

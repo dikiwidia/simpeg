@@ -6,7 +6,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2>Angkat Karyawan<small>Data Semua</small></h2>
+						<h2>Angkat Karyawan<small><?php echo $title; ?></small></h2>
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
@@ -46,7 +46,7 @@
 
                                         echo "<tr>";
                                         echo "<td>".$i++."</td>";
-                                        echo "<td>".read_custom_id_ifempty('speg_biodata',$a['id_biodata'],'nama_biodata','-')."</td>";
+                                        echo "<td>".read_custom_id_ifempty('speg_biodata',$a['id_biodata'],'nama_biodata','<span class="label label-danger">(Master Biodata Dihapus)</span>')."</td>";
                                         echo "<td>".date_id(ifemptydate($a['t_m_karyawan'],'-'))."</td>";
                                         echo "<td>".date_id(ifemptydate($a['t_p_karyawan'],'-'))."</td>";
                                         echo "<td>".$a['nosk_karyawan']."</td>";

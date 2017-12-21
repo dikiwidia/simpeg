@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+//hapus spesial karakter di string
+function clean($string) {
+    $string = str_replace(' ', '', $string); // Replaces all spaces with hyphens.
+ 
+    return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+ }
 //Jika kosong ganti dengan sometext
 function ifempty($cond,$get = "No Data"){
     if($cond == "" || $cond == NULL){

@@ -74,10 +74,13 @@ class Karyawan extends CI_Controller {
 		}elseif($this->uri->segment(3) == "sort"){
 			if($this->uri->segment(4)=="a"){
 				$a = "a";
+				$data['title'] = "Data Karyawan Aktif";
 			}elseif($this->uri->segment(4)=="p"){
 				$a = "p";
+				$data['title'] = "Data Karyawan Pensiun";
 			}elseif($this->uri->segment(4)=="k"){
 				$a = "k";
+				$data['title'] = "Data Karyawan Keluar";
 			}else{
 				redirect('karyawan/angkat');
 			}
@@ -89,72 +92,58 @@ class Karyawan extends CI_Controller {
 			$this->template->display('karyawan/angkat',$data);
 		}else{
 			$data['get'] = $this->crud->read($this->speg_data_karyawan);
-			
+			$data['title'] = "Data Semua";
+
 			$this->template->display('karyawan/angkat',$data);
 		}
 	}
 
     public function jabstruk(){
+		$data['unit'] 		= $this->crud->read($this->speg_data_unit);
 		if($this->uri->segment(3) == "new"){
-            $data['edit_bio']	= $this->crud->read_cond($this->speg_biodata,$arr);
-			$data['agama'] 		= $this->crud->read($this->speg_agama);
-			
-			$this->template->display('dospeg/bio_update',$data);
-			//redirect('/dospeg/jabstruk');
-		}elseif($this->uri->segment(3) == "create"){
-			if(empty($this->input->post('nama_biodata'))){redirect('/master/bio');}
-			if(date_validation($this->input->post('tglahir_biodata'))==FALSE){$dob = "1901-01-01";}
-			else{$dob = $this->input->post('tglahir_biodata');}
+			$data['karyawan'] 	= $this->crud->read($this->speg_data_karyawan);
+			$data['jab'] 		= $this->crud->read($this->speg_data_jabatan);
+
+			$this->template->display('karyawan/jabstruk_new',$data);
+		}elseif($this->uri->segment(3) == "sort"){
 			$arr = array(
-				'nama_biodata' 		=> $this->input->post('nama_biodata'),
-				'jkelamin_biodata'  => $this->input->post('jkelamin_biodata'),
-				'tmplahir_biodata'  => $this->input->post('tmplahir_biodata'),
-				'tglahir_biodata' 	=> $dob,
-				'alamat_biodata' 	=> $this->input->post('alamat_biodata'),
-				'kontak_biodata' 	=> $this->input->post('kontak_biodata'),
-				'surel_biodata' 	=> $this->input->post('surel_biodata'),
-				'id_agama'	 		=> $this->input->post('id_agama')
+				'kode_unit' => $this->uri->segment(4)
 			);
+			$rd = $this->crud->read_cond_bool($this->speg_data_unit,$arr);
+			if($rd == FALSE){redirect('karyawan/angkat');}
 			
-			$this->crud->create($this->speg_biodata,$arr);
-			redirect('/master/bio');
-		} elseif($this->uri->segment(3) == "edit"){
-			if(empty($this->uri->segment(4))){redirect('/master/bio');}
-			
-			$arr = array(
-				'id_biodata' 		=> $this->uri->segment(4)
-			);
-			
-			if($this->crud->read_cond_bool($this->speg_biodata,$arr) == FALSE){redirect('/master/bio');}
-			
-			$data['edit_bio']	= $this->crud->read_cond($this->speg_biodata,$arr);
-			$data['agama'] 		= $this->crud->read($this->speg_agama);
-			
-			$this->template->display('master/bio_update',$data);
-		} elseif($this->uri->segment(3) == "update"){
-			if(empty($this->input->post('nama_biodata')) && empty($this->uri->segment(4))){redirect('/master/bio');}
-			if(date_validation($this->input->post('tglahir_biodata'))==FALSE){$dob = "1901-01-01";}
-			else{$dob = $this->input->post('tglahir_biodata');}
+			$rs = $this->crud->read_cond($this->speg_data_unit,$arr);
+
 			$arr1 = array(
-				'nama_biodata' 		=> $this->input->post('nama_biodata'),
-				'jkelamin_biodata'  => $this->input->post('jkelamin_biodata'),
-				'tmplahir_biodata'  => $this->input->post('tmplahir_biodata'),
-				'tglahir_biodata' 	=> $dob,
-				'alamat_biodata' 	=> $this->input->post('alamat_biodata'),
-				'kontak_biodata' 	=> $this->input->post('kontak_biodata'),
-				'surel_biodata' 	=> $this->input->post('surel_biodata'),
-				'id_agama'	 		=> $this->input->post('id_agama')
+				'id_unit'   => $rs[0]['id_unit']
 			);
-			$arr2 = array(
-				'id_biodata'		=> $this->uri->segment(4)
+			$data['get'] = $this->crud->read_cond($this->speg_jabatan_karyawan,$arr1);
+			$data['title'] = $this->uri->segment(4);
+
+			$this->template->display('karyawan/jabstruk',$data);
+		}elseif($this->uri->segment(3) == "create"){
+			if(empty($this->input->post('id_karyawan'))){redirect('karyawan/jabstruk');}
+			$arr = array(
+				'id_karyawan' => $this->input->post('id_karyawan')
+			);
+			if($this->crud->read_numrows($this->speg_data_karyawan,$arr) == 0){redirect('karyawan/jabstruk');}
+			$arr = array(
+				'id_karyawan' 				=> $this->input->post('id_karyawan'),
+				'id_unit'					=> $this->input->post('id_unit'),
+				'id_jabatan'				=> $this->input->post('id_jabatan'),
+				'nosk_jabatan_karyawan'		=> $this->input->post('nosk_jabatan_karyawan'),
+				'tgl_m_jabatan_karyawan'	=> $this->input->post('tgl_m_jabatan_karyawan'),
+				'tgl_s_jabatan_karyawan'	=> $this->input->post('tgl_s_jabatan_karyawan'),
+				'status_jabatan_karyawan'	=> $this->input->post('status_jabatan_karyawan')
 			);
 			
-			$this->crud->update($this->speg_biodata,$arr1,$arr2,$this->uri->segment(4));
-			redirect('/master/bio');
-		}  else {
+			$this->crud->create($this->speg_jabatan_karyawan,$arr);
+			redirect('karyawan/jabstruk');
+		}else {
 			$data['get'] = $this->crud->read($this->speg_jabatan_karyawan);
-			
-			$this->template->display('dospeg/jabstruk',$data);
+			$data['title'] = 'Data Semua';
+
+			$this->template->display('karyawan/jabstruk',$data);
 		}
 	}
 
