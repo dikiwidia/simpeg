@@ -56,7 +56,7 @@
                                         echo "<td>".ifempty($b['kontak_biodata'],'-')."</td>";
                                         echo "<td>".$html."</td>";
                                         echo "<td>".$html_2."</td>";
-                                        echo '<td><a class="last" href="'.base_url().'master/bio/edit/'.$b['id_biodata'].'">Ubah Biodata</a></td>';
+                                        echo '<td><a class="last" href="'.base_url().'master/bio/edit/'.$b['id_biodata'].'">Ubah</a> <a class="last" href="'.base_url().'master/bio/delete/'.$b['id_biodata'].'">Hapus</a></td>';
                                         echo "</tr>";
                                     }
                                 ?>

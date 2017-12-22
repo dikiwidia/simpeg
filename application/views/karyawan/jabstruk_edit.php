@@ -1,3 +1,11 @@
+<?php
+if(read_custom_cond_bool('speg_data_karyawan',array('id_karyawan'=>$edit[0]['id_karyawan'])) == FALSE){
+    $n = '(Data Karyawan Dihapus)';
+}else{
+    $o = read_custom_id('speg_data_karyawan',$edit[0]['id_karyawan'],'id_biodata');
+    $n = read_custom_id_ifempty('speg_biodata',$o,'nama_biodata','(Master Biodata Dihapus)');
+}
+?>
 <!-- page content -->
 <div class="right_col" role="main">
 	<div class="">
@@ -6,26 +14,12 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2>Jabatan Struktural<small>Buat Baru</small></h2>
+						<h2>Jabatan Struktural<small><?php echo $n; ?></small></h2>
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
-                        <?php echo form_open('karyawan/jabstruk/create', 'class="form-horizontal form-label-left input_mask" autocomplete="off"'); ?>
+                        <?php echo form_open('karyawan/jabstruk/update/'.$edit[0]['id_jabatan_karyawan'], 'class="form-horizontal form-label-left input_mask" autocomplete="off"'); ?>
                         <!-- FORM -->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Pilih Nama *</label>
-                            <div class="col-md-5 col-sm-5 col-xs-12">
-                                <select class="form-control" name="id_karyawan" required>
-                                <option value="">--- PILIH KARYAWAN ---</option>
-                                    <?php 
-                                        foreach ($karyawan as $karyawan){
-                                            echo '<option value="'.$karyawan["id_karyawan"].'">'.read_custom_id_ifempty('speg_biodata',$karyawan['id_biodata'],'nama_biodata','-- Master Biodata Dihapus --').'</option>';
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                            <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
-                        </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Pilih Unit Kerja *</label>
                             <div class="col-md-5 col-sm-5 col-xs-12">
@@ -33,7 +27,8 @@
                                 <option value="">--- PILIH UNIT KERJA ---</option>
                                     <?php 
                                         foreach ($unit as $unit){
-                                            echo '<option value="'.$unit["id_unit"].'">'.$unit['nama_unit'].'</option>';
+                                            $r = ($unit["id_unit"] == $edit[0]['id_unit']) ? "selected='selected'" : "";
+                                            echo '<option value="'.$unit["id_unit"].'" '.$r.'>'.$unit['nama_unit'].'</option>';
                                         }
                                     ?>
                                 </select>
@@ -47,7 +42,8 @@
                                 <option value="">--- PILIH JABATAN ---</option>
                                     <?php 
                                         foreach ($jab as $jab){
-                                            echo '<option value="'.$jab["id_jabatan"].'">'.$jab['nama_jabatan'].'</option>';
+                                            $r = ($jab["id_jabatan"] == $edit[0]['id_jabatan']) ? "selected='selected'" : "";
+                                            echo '<option value="'.$jab["id_jabatan"].'" '.$r.'>'.$jab['nama_jabatan'].'</option>';
                                         }
                                     ?>
                                 </select>
@@ -80,8 +76,8 @@
                             <div class="col-md-5 col-sm-5 col-xs-12">
                                 <select class="form-control" name="status_jabatan_karyawan" required>
                                     <option value="">--- PILIH STATUS ---</option>
-                                    <option value="Y">Aktif</option>
-                                    <option value="N">Nonaktif</option>
+                                    <option value="Y" <?php echo ($edit[0]['status_jabatan_karyawan'] == 'Y') ? "selected='selected'" : ""; ?>>Aktif</option>
+                                    <option value="N" <?php echo ($edit[0]['status_jabatan_karyawan'] == 'N') ? "selected='selected'" : ""; ?>>Nonaktif</option>
                                 </select>
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>

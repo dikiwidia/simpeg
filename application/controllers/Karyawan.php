@@ -9,7 +9,7 @@ class Karyawan extends CI_Controller {
 	* NOTES   : 
     */
 
-	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan, $speg_data_karyawan, $speg_jabatan_karyawan;
+	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan, $speg_data_karyawan, $speg_jabatan_karyawan, $speg_supervisi;
 
 	public function __construct() {
 	parent::__construct();
@@ -24,6 +24,7 @@ class Karyawan extends CI_Controller {
         $this->speg_data_jabatan 	= 'speg_data_jabatan';
         $this->speg_data_karyawan 	= 'speg_data_karyawan';
         $this->speg_jabatan_karyawan= 'speg_jabatan_karyawan';
+        $this->speg_supervisi		= 'speg_supervisi';
     }
     
 	public function index(){
@@ -60,6 +61,16 @@ class Karyawan extends CI_Controller {
 			
 			$this->crud->update($this->speg_data_karyawan,$arr1,$arr2,$this->uri->segment(4));
 			redirect('karyawan/angkat');
+		}elseif($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/angkat');}
+			$arr = array(
+				'id_karyawan' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_data_karyawan,$arr);
+			if($rd == FALSE){redirect('karyawan/angkat');}
+			
+			$this->crud->delete($this->speg_data_karyawan,$arr,$this->uri->segment(4));
+			redirect('karyawan/angkat');
 		}elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('karyawan/angkat');}
 
@@ -92,7 +103,7 @@ class Karyawan extends CI_Controller {
 			$this->template->display('karyawan/angkat',$data);
 		}else{
 			$data['get'] = $this->crud->read($this->speg_data_karyawan);
-			$data['title'] = "Data Semua";
+			$data['title'] = "Semua";
 
 			$this->template->display('karyawan/angkat',$data);
 		}
@@ -100,17 +111,28 @@ class Karyawan extends CI_Controller {
 
     public function jabstruk(){
 		$data['unit'] 		= $this->crud->read($this->speg_data_unit);
+		//$data['karyawan'] 	= $this->crud->read($this->speg_data_karyawan);
+		$data['jab'] 		= $this->crud->read($this->speg_data_jabatan);
+		
 		if($this->uri->segment(3) == "new"){
-			$data['karyawan'] 	= $this->crud->read($this->speg_data_karyawan);
-			$data['jab'] 		= $this->crud->read($this->speg_data_jabatan);
+			$data['karyawan'] = $this->crud->read_cond($this->speg_data_karyawan,array('status_karyawan'=>'A'));
 
 			$this->template->display('karyawan/jabstruk_new',$data);
+		}elseif($this->uri->segment(3) == "edit"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/jabstruk');}
+			$arr = array(
+				'id_jabatan_karyawan' => $this->uri->segment(4)
+			);
+			if($this->crud->read_cond_bool($this->speg_jabatan_karyawan,$arr) == FALSE){redirect('karyawan/jabstruk');}
+			$data['edit']	= $this->crud->read_cond($this->speg_jabatan_karyawan,$arr);
+			
+			$this->template->display('karyawan/jabstruk_edit',$data);
 		}elseif($this->uri->segment(3) == "sort"){
 			$arr = array(
 				'kode_unit' => $this->uri->segment(4)
 			);
 			$rd = $this->crud->read_cond_bool($this->speg_data_unit,$arr);
-			if($rd == FALSE){redirect('karyawan/angkat');}
+			if($rd == FALSE){redirect('karyawan/jabstruk');}
 			
 			$rs = $this->crud->read_cond($this->speg_data_unit,$arr);
 
@@ -139,162 +161,63 @@ class Karyawan extends CI_Controller {
 			
 			$this->crud->create($this->speg_jabatan_karyawan,$arr);
 			redirect('karyawan/jabstruk');
+		}elseif($this->uri->segment(3) == "update"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/jabstruk');}
+			$arr = array(
+				'id_jabatan_karyawan' => $this->uri->segment(4)
+			);
+			if($this->crud->read_numrows($this->speg_jabatan_karyawan,$arr) == 0){redirect('karyawan/jabstruk');}
+			$arr1 = array(
+				'id_unit'					=> $this->input->post('id_unit'),
+				'id_jabatan'				=> $this->input->post('id_jabatan'),
+				'nosk_jabatan_karyawan'		=> $this->input->post('nosk_jabatan_karyawan'),
+				'tgl_m_jabatan_karyawan'	=> $this->input->post('tgl_m_jabatan_karyawan'),
+				'tgl_s_jabatan_karyawan'	=> $this->input->post('tgl_s_jabatan_karyawan'),
+				'status_jabatan_karyawan'	=> $this->input->post('status_jabatan_karyawan')
+			);
+			$arr2 = array(
+				'id_jabatan_karyawan'		=> $this->uri->segment(4)
+			);
+
+			$this->crud->update($this->speg_jabatan_karyawan,$arr1,$arr2,$this->uri->segment(4));
+			redirect('karyawan/jabstruk');
+		}elseif($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/jabstruk');}
+			$arr = array(
+				'id_jabatan_karyawan' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_jabatan_karyawan,$arr);
+			if($rd == FALSE){redirect('karyawan/jabstruk');}
+			
+			$this->crud->delete($this->speg_jabatan_karyawan,$arr,$this->uri->segment(4));
+			redirect('karyawan/jabstruk');
 		}else {
 			$data['get'] = $this->crud->read($this->speg_jabatan_karyawan);
-			$data['title'] = 'Data Semua';
+			$data['title'] = 'Semua';
 
 			$this->template->display('karyawan/jabstruk',$data);
 		}
 	}
-
-	public function user(){
-		if($this->uri->segment(3) == "create"){
-			$cond = $this->crud->read_cond_bool($this->speg_user,array('nama_user'=>$this->input->post('nama_user')));
-			if(empty($this->input->post('nama_user')) || $cond == TRUE){
-				redirect('/master/bio');
-			} else {
-				$arr = array(
-					'nama_user' 	=> $this->input->post('nama_user'),
-					'sandi_user'	=> md5($this->input->post('sandi_user')),
-					'level_user' 	=> $this->input->post('level_user'),
-					'phscr_user' 	=> '',
-					'id_biodata' 	=> $this->input->post('id_biodata'),
-					'status_user' 	=> 'N'
-				);
-				
-				$this->crud->create($this->speg_user,$arr);
-				redirect('/master/bio');
-			}
-		} else {
-			redirect('/');
-		}
-	}
-
-	public function gaji(){
-		if($this->uri->segment(3) == "create"){
-			if(empty($this->input->post('kode_golgaji'))){redirect('/master/gaji');}
-			$r = $this->crud->read_numrows($this->speg_data_golgaji,array('kode_golgaji'=>$this->input->post('kode_golgaji')));
-			if($r >= 1){redirect('/master/gaji');}
-			$arr = array(
-				'kode_golgaji' 		=> $this->input->post('kode_golgaji'),
-				'nama_golgaji'  	=> $this->input->post('nama_golgaji'),
-				'nominal_golgaji'   => $this->input->post('nominal_golgaji'),
-				'rev_golgaji'	 	=> 0
-			);
-			
-			$this->crud->create($this->speg_data_golgaji,$arr);
-			redirect('/master/gaji');
-		} elseif($this->uri->segment(3) == "edit"){
-			if(empty($this->uri->segment(4))){redirect('/master/gaji');}
-			
-			$arr = array(
-				'id_golgaji' 		=> $this->uri->segment(4)
-			);
-			
-			if($this->crud->read_cond_bool($this->speg_data_golgaji,$arr) == FALSE){redirect('/master/gaji');}
-			
-			$data['edit']	= $this->crud->read_cond($this->speg_data_golgaji,$arr);
-			
-			$this->template->display('master/gaji_update',$data);
-		} elseif($this->uri->segment(3) == "update"){
-			if($this->input->post('kode_golgaji') && empty($this->uri->segment(4))){redirect('/master/gaji');}
-			$arr = array(
-				'kode_golgaji' 		=> $this->input->post('kode_golgaji'),
-				'nama_golgaji'  	=> $this->input->post('nama_golgaji'),
-				'nominal_golgaji'   => $this->input->post('nominal_golgaji'),
-				'rev_golgaji'	 	=> $this->input->post('rev_golgaji')+1
-			);
-			
-			$this->crud->create($this->speg_data_golgaji,$arr);
-			redirect('/master/gaji');
-		} else {
-			$q = 'SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev';
-			$data['gaji'] = $this->crud->read_query($q);
-			$this->template->display('master/gaji',$data);
-		}
-	}
-
-	public function tunjangan(){
-		if($this->uri->segment(3) == "create"){
-			if(empty($this->input->post('nama_tunjangan'))){redirect('/master/tunjangan');}
-			$arr = array(
-				'nama_tunjangan' 	=> $this->input->post('nama_tunjangan'),
-				'ket_tunjangan'		=> $this->input->post('ket_tunjangan')
-			);
-			
-			$this->crud->create($this->speg_data_tunjangan,$arr);
-			redirect('/master/tunjangan');
-		} elseif($this->uri->segment(3) == "edit"){
-			if(empty($this->uri->segment(4))){redirect('/master/tunjangan');}
-			
-			$arr = array(
-				'id_tunjangan' 		=> $this->uri->segment(4)
-			);
-			
-			if($this->crud->read_cond_bool($this->speg_data_tunjangan,$arr) == FALSE){redirect('/master/tunjangan');}
-			$data['edit']	= $this->crud->read_cond($this->speg_data_tunjangan,$arr);
-			
-			$this->template->display('master/tunjangan_update',$data);
-		} elseif($this->uri->segment(3) == "update"){
-			if(empty($this->input->post('nama_tunjangan')) && empty($this->uri->segment(4))){redirect('/master/tunjangan');}
-			$arr1 = array(
-				'nama_tunjangan' 	=> $this->input->post('nama_tunjangan'),
-				'ket_tunjangan'		=> $this->input->post('ket_tunjangan')
-			);
-			$arr2 = array(
-				'id_tunjangan'		=> $this->uri->segment(4)
-			);
-			
-			$this->crud->update($this->speg_data_tunjangan,$arr1,$arr2,$this->uri->segment(4));
-			redirect('/master/tunjangan');
-		} else {
-			$data['get'] 	= $this->crud->read($this->speg_data_tunjangan);
-			
-			$this->template->display('master/tunjangan',$data);
-		}
-	}
-
-	public function potongan(){
-		if($this->uri->segment(3) == "create"){
-			if(empty($this->input->post('nama_potongan'))){redirect('/master/potongan');}
-			$arr = array(
-				'nama_potongan' 	=> $this->input->post('nama_potongan'),
-				'ket_potongan'		=> $this->input->post('ket_potongan')
-			);
-			
-			$this->crud->create($this->speg_data_potongan,$arr);
-			redirect('/master/potongan');
-		} elseif($this->uri->segment(3) == "edit"){
-			if(empty($this->uri->segment(4))){redirect('/master/potongan');}
-			
-			$arr = array(
-				'id_potongan' 		=> $this->uri->segment(4)
-			);
-			
-			if($this->crud->read_cond_bool($this->speg_data_potongan,$arr) == FALSE){redirect('/master/potongan');}
-			$data['edit']	= $this->crud->read_cond($this->speg_data_potongan,$arr);
-			
-			$this->template->display('master/potongan_update',$data);
-		} elseif($this->uri->segment(3) == "update"){
-			if(empty($this->input->post('nama_potongan')) && empty($this->uri->segment(4))){redirect('/master/potongan');}
-			$arr1 = array(
-				'nama_potongan' 	=> $this->input->post('nama_potongan'),
-				'ket_potongan'		=> $this->input->post('ket_potongan')
-			);
-			$arr2 = array(
-				'id_potongan'		=> $this->uri->segment(4)
-			);
-			
-			$this->crud->update($this->speg_data_potongan,$arr1,$arr2,$this->uri->segment(4));
-			redirect('/master/potongan');
-		} else {
-			$data['get'] 	= $this->crud->read($this->speg_data_potongan);
-			
-			$this->template->display('master/potongan',$data);
-		}
-	}
-
 	
+	public function tugas(){
+		if($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/tugas');}
+			$arr = array(
+				'id_supervisi' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_supervisi,$arr);
+			if($rd == FALSE){redirect('karyawan/tugas');}
+			
+			$this->crud->delete($this->speg_supervisi,$arr,$this->uri->segment(4));
+			redirect('karyawan/tugas');
+		}else {
+			$data['get'] = $this->crud->read($this->speg_supervisi);
+			$data['title'] = 'Semua';
+
+			$this->template->display('karyawan/tugas',$data);
+		}
+	}
+
 	public function test(){
 		$q = $this->crud->read_fields('speg_user');
 		print_r($q);

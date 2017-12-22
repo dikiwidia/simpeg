@@ -6,7 +6,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2>Angkat Karyawan<small><?php echo $title; ?></small></h2>
+						<h2>Data Karyawan<small><?php echo $title; ?></small></h2>
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
@@ -40,18 +40,18 @@
                                     $i = 1;
                                     foreach($get as $a){
                                         $status = $a['status_karyawan'];
-                                        if($status == "A"){$status = "Aktif";}
-                                        elseif($status == "P"){$status = "Pensiun";}
-                                        else{$status = "Keluar";}
+                                        if($status == "A"){$status = '<span class="label label-success">Aktif</span>';}
+                                        elseif($status == "P"){$status = '<span class="label label-warning">Pensiun</span>';}
+                                        else{$status = '<span class="label label-danger">Keluar</span>';}
 
                                         echo "<tr>";
                                         echo "<td>".$i++."</td>";
                                         echo "<td>".read_custom_id_ifempty('speg_biodata',$a['id_biodata'],'nama_biodata','<span class="label label-danger">(Master Biodata Dihapus)</span>')."</td>";
                                         echo "<td>".date_id(ifemptydate($a['t_m_karyawan'],'-'))."</td>";
                                         echo "<td>".date_id(ifemptydate($a['t_p_karyawan'],'-'))."</td>";
-                                        echo "<td>".$a['nosk_karyawan']."</td>";
+                                        echo "<td>".ifempty($a['nosk_karyawan'],'-')."</td>";
                                         echo "<td>".$status."</td>";
-                                        echo '<td><a class="last edit" href="'.base_url().'karyawan/angkat/edit/'.$a['id_karyawan'].'">Ubah</a> <a class="last edit" href="'.base_url().'karyawan/angkat/hapus/'.$a['id_karyawan'].'">Hapus</a></td>';
+                                        echo '<td><a class="last edit" href="'.base_url().'karyawan/angkat/edit/'.$a['id_karyawan'].'">Ubah</a> <a class="last edit" href="'.base_url().'karyawan/angkat/delete/'.$a['id_karyawan'].'">Hapus</a></td>';
                                         echo "</tr>";
                                     }
                                 ?>

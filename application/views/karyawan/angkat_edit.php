@@ -12,20 +12,13 @@ else{$a=''; $p = ''; $k ='';}
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2>Angkat Karyawan<small>Ubah Data: <?php echo $edit[0]['id_biodata']; ?></small></h2>
+						<h2>Data Karyawan<small><?php echo read_custom_id_ifempty('speg_biodata',$edit[0]['id_biodata'],'nama_biodata','(Master Biodata Dihapus)'); ?></small></h2>
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
                         
                         <?php echo form_open('karyawan/angkat/update/'.$edit[0]['id_karyawan'], 'class="form-horizontal submit form-label-left input_mask" autocomplete="off"'); ?>
-                        <!-- FORM -->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Pilih Nama *</label>
-                            <div class="col-md-5 col-sm-5 col-xs-12">
-                                <input type="text" class="form-control" value="<?php echo read_custom_id_ifempty('speg_biodata',$edit[0]['id_biodata'],'nama_biodata','-'); ?>" readonly />
-                            </div>
-                            <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
-                        </div>                                
+                        <!-- FORM -->                            
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">No. SK Pengangkatan </label>
                             <div class="col-md- col-sm-5 col-xs-12">

@@ -13,13 +13,14 @@ class Crud extends CI_Model {
 		$this->create_log_create($table,$arr);
     }
     
-	public function delete($table,$arr) {
+	public function delete($table,$arr,$id=0) {
 		/*--------------------------------
 		Keterangan :
 		- $table 	= tabel tujuan
 		- $arr		= data bentuk array
 		---------------------------------*/
 		$this->db->delete($table,$arr);
+		$this->create_log_delete($table,$id);
     }
     
 	public function update($table,$arr1,$arr2,$id=0) {
@@ -165,6 +166,17 @@ class Crud extends CI_Model {
 			'tblname_log'	 => $table,
 			'id_tblname_log' => $id,
 			'aksi_log' 		 => 'u',
+			'date_log'		 => date("Y-m-d H:i:s")
+		);
+		$this->db->insert('speg_log',$arr);
+	}
+
+	public function create_log_delete($table,$id){
+		$arr = array(
+			'id_user'		 => user_data('id_user'),
+			'tblname_log'	 => $table,
+			'id_tblname_log' => $id,
+			'aksi_log' 		 => 'd',
 			'date_log'		 => date("Y-m-d H:i:s")
 		);
 		$this->db->insert('speg_log',$arr);

@@ -6,35 +6,22 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Jabatan Struktural<small><?php echo $title; ?></small></h2>
+                    <h2>Data Penugasan Karyawan<small><?php echo $title; ?></small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sort"></i> Sortir <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <?php 
-                                foreach($unit as $l){
-                                    echo '<li><a href="'.base_url().'karyawan/jabstruk/sort/'.$l['kode_unit'].'">'.$l['nama_unit'].'</a></li>';
-                                }
-                            ?>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo base_url().'karyawan/jabstruk'; ?>">Kembali</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group">
-                        <a href="<?php echo base_url().'karyawan/jabstruk/new'; ?>"class="btn btn-success "><i class="fa fa-plus"></i> Baru</a>
+                    <a href="<?php echo base_url().'karyawan/jabstruk/new'; ?>"class="btn btn-primary"><i class="fa fa-filter"></i> Filter</a>
                     </div>
                     <table id="datatable-responsive" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Karyawan</th>
-                                <th>Nama Unit</th>
-                                <th>Jabatan</th>
-                                <th>SK Jabatan</th>
-                                <th>Mulai Jabatan</th>
-                                <th>Selesai Jabatan</th>
+                                <th>Judul Tugas</th>
+                                <th>Tgl. Mulai</th>
+                                <th>Batas Akhir</th>
+                                <th>Tgl. Selesai</th>
+                                <th>Dari</th>
+                                <th>Kepada</th>
                                 <th>Status</th>
                                 <th>Opsi</th>
                             </tr>
@@ -44,11 +31,11 @@
                                 $i = 1;
                                 foreach($get as $b){
                                     //nama
-                                    if(read_custom_cond_bool('speg_data_karyawan',array('id_karyawan'=>$b['id_karyawan'])) == FALSE){
-                                        $p = '<span class="label label-danger">(Data Karyawan Dihapus)</span>';
+                                    if(read_custom_cond_bool('speg_data_karyawan',array('id_karyawan'=>$b['dari_id_karyawan'])) == FALSE){
+                                        $d = '<span class="label label-danger">(Data Karyawan Dihapus)</span>';
                                     }else{
-                                        $o = read_custom_id('speg_data_karyawan',$b['id_karyawan'],'id_biodata');
-                                        $p = read_custom_id_ifempty('speg_biodata',$o,'nama_biodata','<span class="label label-danger">(Master Biodata Dihapus)</span>');
+                                        $o = read_custom_id('speg_data_karyawan',$b['dari_id_karyawan'],'id_biodata');
+                                        $d = read_custom_id_ifempty('speg_biodata',$o,'nama_biodata','<span class="label label-danger">(Master Biodata Dihapus)</span>');
                                     }
                                 
                                     //unit

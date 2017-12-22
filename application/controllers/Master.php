@@ -79,6 +79,16 @@ class Master extends CI_Controller {
 			
 			$this->crud->update($this->speg_biodata,$arr1,$arr2,$this->uri->segment(4));
 			redirect('/master/bio');
+		} elseif($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('master/bio');}
+			$arr = array(
+				'id_biodata' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_biodata,$arr);
+			if($rd == FALSE){redirect('master/bio');}
+			
+			$this->crud->delete($this->speg_biodata,$arr,$this->uri->segment(4));
+			redirect('master/bio');
 		} else {
 			$data['agama'] 		= $this->crud->read($this->speg_agama);
 			$data['biodata'] 	= $this->crud->read($this->speg_biodata);
