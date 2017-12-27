@@ -36,7 +36,7 @@
                                         echo "<td>".$a['nama_golgaji']."</td>";
                                         echo "<td class='money dt-right'>".$a['nominal_golgaji']."</td>";
                                         echo "<td>".$a['rev_golgaji']."</td>";
-                                        echo '<td><a class="last edit" href="'.base_url().'master/gaji/edit/'.$a['id_golgaji'].'">Revisi</a></td>';
+                                        echo '<td><a class="last edit" href="'.base_url().'master/gaji/edit/'.$a['id_golgaji'].'">Revisi</a> <a class="last edit" href="'.base_url().'master/gaji/delete/'.$a['kode_golgaji'].'">Hapus</a></td>';
                                         echo "</tr>";
                                     }
                                 ?>

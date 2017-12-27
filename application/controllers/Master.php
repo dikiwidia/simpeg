@@ -149,6 +149,10 @@ class Master extends CI_Controller {
 			$this->template->display('master/gaji_update',$data);
 		} elseif($this->uri->segment(3) == "update"){
 			if($this->input->post('kode_golgaji') && empty($this->uri->segment(4))){redirect('/master/gaji');}
+			$arr_test = array(
+				'rev_golgaji'	 	=> $this->input->post('rev_golgaji')+1
+			);
+			if($this->crud->read_cond_bool($this->speg_data_golgaji,$arr_test) == TRUE){redirect('/master/gaji');}
 			$arr = array(
 				'kode_golgaji' 		=> $this->input->post('kode_golgaji'),
 				'nama_golgaji'  	=> $this->input->post('nama_golgaji'),
@@ -158,6 +162,16 @@ class Master extends CI_Controller {
 			
 			$this->crud->create($this->speg_data_golgaji,$arr);
 			redirect('/master/gaji');
+		} elseif($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('master/gaji');}
+			$arr = array(
+				'kode_golgaji' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_numrows($this->speg_data_golgaji,$arr);
+			if($rd == 0){redirect('master/gaji');}
+			
+			$this->crud->delete($this->speg_data_golgaji,$arr,$this->uri->segment(4));
+			redirect('master/gaji');
 		} else {
 			$q = 'SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev';
 			$data['gaji'] = $this->crud->read_query($q);
@@ -198,6 +212,16 @@ class Master extends CI_Controller {
 			
 			$this->crud->update($this->speg_data_tunjangan,$arr1,$arr2,$this->uri->segment(4));
 			redirect('/master/tunjangan');
+		} elseif($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('master/tunjangan');}
+			$arr = array(
+				'id_tunjangan' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_data_tunjangan,$arr);
+			if($rd == FALSE){redirect('master/tunjangan');}
+			
+			$this->crud->delete($this->speg_data_tunjangan,$arr,$this->uri->segment(4));
+			redirect('master/tunjangan');
 		} else {
 			$data['get'] 	= $this->crud->read($this->speg_data_tunjangan);
 			
@@ -238,6 +262,16 @@ class Master extends CI_Controller {
 			
 			$this->crud->update($this->speg_data_potongan,$arr1,$arr2,$this->uri->segment(4));
 			redirect('/master/potongan');
+		} elseif($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('master/potongan');}
+			$arr = array(
+				'id_potongan' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_data_potongan,$arr);
+			if($rd == FALSE){redirect('master/potongan');}
+			
+			$this->crud->delete($this->speg_data_potongan,$arr,$this->uri->segment(4));
+			redirect('master/potongan');
 		} else {
 			$data['get'] 	= $this->crud->read($this->speg_data_potongan);
 			
@@ -280,6 +314,16 @@ class Master extends CI_Controller {
 			
 			$this->crud->update($this->speg_data_jabatan,$arr1,$arr2,$this->uri->segment(4));
 			redirect('/master/jabstruk');
+		} elseif($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('master/jabstruk');}
+			$arr = array(
+				'id_jabatan' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_data_jabatan,$arr);
+			if($rd == FALSE){redirect('master/jabstruk');}
+			
+			$this->crud->delete($this->speg_data_jabatan,$arr,$this->uri->segment(4));
+			redirect('master/jabstruk');
 		} else {
 			$data['get'] 	= $this->crud->read($this->speg_data_jabatan);
 			
@@ -324,6 +368,16 @@ class Master extends CI_Controller {
 			
 			$this->crud->update($this->speg_data_unit,$arr1,$arr2,$this->uri->segment(4));
 			redirect('/master/unit');
+		} elseif($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('master/unit');}
+			$arr = array(
+				'id_unit' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_data_unit,$arr);
+			if($rd == FALSE){redirect('master/unit');}
+			
+			$this->crud->delete($this->speg_data_unit,$arr,$this->uri->segment(4));
+			redirect('master/unit');
 		} else {
 			$data['get'] 	= $this->crud->read($this->speg_data_unit);
 			

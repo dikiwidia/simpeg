@@ -30,7 +30,7 @@
                                         echo "<td>".$i++."</td>";
                                         echo "<td>".$b['nama_potongan']."</td>";
                                         echo "<td>".$b['ket_potongan']."</td>";
-                                        echo '<td><a class="link" href="'.base_url().'master/potongan/edit/'.$b['id_potongan'].'">Ubah</a></td>';
+                                        echo '<td><a class="link" href="'.base_url().'master/potongan/edit/'.$b['id_potongan'].'">Ubah</a> <a class="link" href="'.base_url().'master/potongan/delete/'.$b['id_potongan'].'">Hapus</a></td>';
                                         echo "</tr>";
                                     }
                                 ?>

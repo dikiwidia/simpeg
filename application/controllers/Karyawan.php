@@ -9,7 +9,7 @@ class Karyawan extends CI_Controller {
 	* NOTES   : 
     */
 
-	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan, $speg_data_karyawan, $speg_jabatan_karyawan, $speg_supervisi;
+	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan, $speg_data_karyawan, $speg_jabatan_karyawan, $speg_supervisi, $speg_golgaji_karyawan;
 
 	public function __construct() {
 	parent::__construct();
@@ -24,6 +24,7 @@ class Karyawan extends CI_Controller {
         $this->speg_data_jabatan 	= 'speg_data_jabatan';
         $this->speg_data_karyawan 	= 'speg_data_karyawan';
         $this->speg_jabatan_karyawan= 'speg_jabatan_karyawan';
+        $this->speg_golgaji_karyawan= 'speg_golgaji_karyawan';
         $this->speg_supervisi		= 'speg_supervisi';
     }
     
@@ -215,6 +216,25 @@ class Karyawan extends CI_Controller {
 			$data['title'] = 'Semua';
 
 			$this->template->display('karyawan/tugas',$data);
+		}
+	}
+
+	public function golgaji(){
+		if($this->uri->segment(3) == "delete"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/tugas');}
+			$arr = array(
+				'id_supervisi' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_supervisi,$arr);
+			if($rd == FALSE){redirect('karyawan/tugas');}
+			
+			$this->crud->delete($this->speg_supervisi,$arr,$this->uri->segment(4));
+			redirect('karyawan/tugas');
+		}else {
+			$data['get'] = $this->crud->read($this->speg_golgaji_karyawan);
+			$data['title'] = 'Semua';
+
+			$this->template->display('karyawan/golgaji',$data);
 		}
 	}
 

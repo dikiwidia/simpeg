@@ -32,7 +32,7 @@
                                         echo "<td>".$b['kode_unit']."</td>";
                                         echo "<td>".$b['nama_unit']."</td>";
                                         echo "<td>".$b['ket_unit']."</td>";
-                                        echo '<td><a class="link" href="'.base_url().'master/unit/edit/'.$b['id_unit'].'">Ubah</a></td>';
+                                        echo '<td><a class="link" href="'.base_url().'master/unit/edit/'.$b['id_unit'].'">Ubah</a> <a class="link" href="'.base_url().'master/unit/delete/'.$b['id_unit'].'">Hapus</a></td>';
                                         echo "</tr>";
                                     }
                                 ?>
