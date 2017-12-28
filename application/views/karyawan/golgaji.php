@@ -18,12 +18,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Karyawan</th>
-                                <th>Nama Unit</th>
-                                <th>Jabatan</th>
                                 <th>SK Penetapan Gaji</th>
                                 <th>Tanggal Ketetapan</th>
-                                <th>Selesai Jabatan</th>
-                                <th>Status</th>
                                 <th>Opsi</th>
                             </tr>
                         </thead>
@@ -31,33 +27,20 @@
                             <?php
                                 $i = 1;
                                 foreach($get as $b){
-                                    //nama
+                                    //karyawan
                                     if(read_custom_cond_bool('speg_data_karyawan',array('id_karyawan'=>$b['id_karyawan'])) == FALSE){
                                         $p = '<span class="label label-danger">(Data Karyawan Dihapus)</span>';
                                     }else{
                                         $o = read_custom_id('speg_data_karyawan',$b['id_karyawan'],'id_biodata');
                                         $p = read_custom_id_ifempty('speg_biodata',$o,'nama_biodata','<span class="label label-danger">(Master Biodata Dihapus)</span>');
                                     }
-                                
-                                    //unit
-                                    $q = read_custom_id_ifempty('speg_data_unit',$b['id_unit'],'nama_unit','<span class="label label-danger">(Master Unit Dihapus)</span>');
-
-                                    //jabatan
-                                    $r = read_custom_id_ifempty('speg_data_jabatan',$b['id_jabatan'],'nama_jabatan','<span class="label label-danger">(Master Jabatan Dihapus)</span>');
-
-                                    //status
-                                    if($b['status_jabatan_karyawan'] == 'Y'){$s = '<span class="label label-success">Aktif</span>';}else{$s = '<span class="label label-primary">Nonaktif</span>';}
 
                                     echo "<tr>";
                                     echo "<td>".$i++."</td>";
                                     echo "<td>".$p."</td>";
-                                    echo "<td>".$q."</td>";
-                                    echo "<td>".$r."</td>";
-                                    echo "<td>".ifempty($b['nosk_jabatan_karyawan'],'-')."</td>";
-                                    echo "<td>".date_id(ifemptydate($b['tgl_m_jabatan_karyawan'],'-'))."</td>";
-                                    echo "<td>".date_id(ifemptydate($b['tgl_s_jabatan_karyawan'],'-'))."</td>";
-                                    echo "<td>".$s."</td>";
-                                    echo '<td><a class="link" href="'.base_url().'karyawan/jabstruk/edit/'.$b['id_jabatan_karyawan'].'">Ubah</a> <a class="link" href="'.base_url().'karyawan/jabstruk/delete/'.$b['id_jabatan_karyawan'].'">Hapus</a></td>';
+                                    echo "<td>".ifempty($b['nosk_golgaji_karyawan'],'-')."</td>";
+                                    echo "<td>".date_id(ifemptydate($b['t_nk_golgaji_karyawan'],'-'))."</td>";
+                                    echo '<td><a class="link" href="'.base_url().'karyawan/golgaji/up/'.$b['id_golgaji_karyawan'].'">Naik</a> <a class="link" href="'.base_url().'karyawan/golgaji/delete/'.$b['id_golgaji_karyawan'].'">Hapus</a></td>';
                                     echo "</tr>";
                                 }
                             ?>
