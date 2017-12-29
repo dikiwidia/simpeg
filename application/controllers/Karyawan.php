@@ -9,7 +9,7 @@ class Karyawan extends CI_Controller {
 	* NOTES   : 
     */
 
-	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan, $speg_data_karyawan, $speg_jabatan_karyawan, $speg_supervisi, $speg_golgaji_karyawan;
+	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan, $speg_data_karyawan, $speg_jabatan_karyawan, $speg_supervisi, $speg_golgaji_karyawan, $speg_tunjangan_karyawan, $speg_hgolgaji_karyawan;
 
 	public function __construct() {
 	parent::__construct();
@@ -25,7 +25,9 @@ class Karyawan extends CI_Controller {
         $this->speg_data_karyawan 	= 'speg_data_karyawan';
         $this->speg_jabatan_karyawan= 'speg_jabatan_karyawan';
         $this->speg_golgaji_karyawan= 'speg_golgaji_karyawan';
-        $this->speg_supervisi		= 'speg_supervisi';
+		$this->speg_supervisi		= 'speg_supervisi';
+		$this->speg_tunjangan_karyawan = 'speg_tunjangan_karyawan';
+		$this->speg_hgolgaji_karyawan  = 'speg_hgolgaji_karyawan';
     }
     
 	public function index(){
@@ -220,17 +222,83 @@ class Karyawan extends CI_Controller {
 	}
 
 	public function golgaji(){
+		$q = 'SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev';
+		//AMBIL GAJI
+		$data['gaji'] = $this->crud->read_query($q);
+
 		if($this->uri->segment(3) == "delete"){
-			if(empty($this->uri->segment(4))){redirect('karyawan/tugas');}
+			if(empty($this->uri->segment(4))){redirect('karyawan/golgaji');}
 			$arr = array(
-				'id_supervisi' 		=> $this->uri->segment(4),
+				'id_golgaji_karyawan' 		=> $this->uri->segment(4),
 			);
-			$rd = $this->crud->read_cond_bool($this->speg_supervisi,$arr);
-			if($rd == FALSE){redirect('karyawan/tugas');}
+			$rd = $this->crud->read_cond_bool($this->speg_golgaji_karyawan,$arr);
+			if($rd == FALSE){redirect('karyawan/golgaji');}else{
+				$arr_e = $this->crud->read_cond($this->speg_golgaji_karyawan,$arr);
+			}
+			$arr_d = array(
+				'id_karyawan'			=> $arr_e[0]['id_karyawan'],
+				'kode_golgaji'			=> $arr_e[0]['kode_golgaji'],
+				't_nk_golgaji_karyawan'	=> $arr_e[0]['t_nk_golgaji_karyawan'],
+				'nosk_golgaji_karyawan'	=> $arr_e[0]['nosk_golgaji_karyawan']
+			); 
+			$this->crud->nat_create($this->speg_hgolgaji_karyawan,$arr_d);
+
+			$this->crud->delete($this->speg_golgaji_karyawan,$arr,$this->uri->segment(4));
+			redirect('karyawan/golgaji');
+		} elseif($this->uri->segment(3) == "update"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/golgaji');}
+			$arr1 = array(
+				'kode_golgaji'				=> $this->input->post('kode_golgaji'),
+				't_nk_golgaji_karyawan'		=> $this->input->post('t_nk_golgaji_karyawan'),
+				'nosk_golgaji_karyawan'		=> $this->input->post('nosk_golgaji_karyawan')
+			);
+			$arr2 = array(
+				'id_golgaji_karyawan'		=> $this->uri->segment(4)
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_golgaji_karyawan,$arr2);
+			if($rd == FALSE){redirect('karyawan/golgaji');}else{
+				$arr_e = $this->crud->read_cond($this->speg_golgaji_karyawan,$arr2);
+			}
+			$arr_d = array(
+				'id_karyawan'			=> $arr_e[0]['id_karyawan'],
+				'kode_golgaji'			=> $arr_e[0]['kode_golgaji'],
+				't_nk_golgaji_karyawan'	=> $arr_e[0]['t_nk_golgaji_karyawan'],
+				'nosk_golgaji_karyawan'	=> $arr_e[0]['nosk_golgaji_karyawan']
+			); 
+			$this->crud->nat_create($this->speg_hgolgaji_karyawan,$arr_d);
+
+			$this->crud->update($this->speg_golgaji_karyawan,$arr1,$arr2,$this->uri->segment(4));
+			redirect('karyawan/golgaji');
+		} elseif($this->uri->segment(3) == "up"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/golgaji');}
+			$arr = array(
+				'id_golgaji_karyawan' 		=> $this->uri->segment(4),
+			);
+			$rd = $this->crud->read_cond_bool($this->speg_golgaji_karyawan,$arr);
+			if($rd == FALSE){redirect('karyawan/golgaji');}	
+
+			$sent = $this->crud->read_cond($this->speg_golgaji_karyawan,$arr);
+			$data['edit'] 	= $sent;
+			$data['gaji_b'] = $this->crud->read_query('SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev WHERE a.kode_golgaji = "'.$sent[0]['kode_golgaji'].'"');
+
+			$this->template->display('karyawan/golgaji_update',$data);
+		} elseif($this->uri->segment(3) == "new"){
+			$data['karyawan'] = $this->crud->read_query("SELECT t1.* FROM speg_data_karyawan t1 LEFT JOIN speg_golgaji_karyawan t2 ON t2.id_karyawan = t1.id_karyawan WHERE t2.id_karyawan IS NULL");
+			$data['title'] = 'Buat Baru';
 			
-			$this->crud->delete($this->speg_supervisi,$arr,$this->uri->segment(4));
-			redirect('karyawan/tugas');
-		}else {
+			$this->template->display('karyawan/golgaji_new',$data);
+		} elseif($this->uri->segment(3) == "create"){
+			if(empty($this->input->post('id_karyawan'))){redirect('karyawan/golgaji');}
+			$arr = array(
+				'id_karyawan'			=> $this->input->post('id_karyawan'),
+				'kode_golgaji'			=> $this->input->post('kode_golgaji'),
+				't_nk_golgaji_karyawan'	=> $this->input->post('t_nk_golgaji_karyawan'),
+				'nosk_golgaji_karyawan'	=> $this->input->post('nosk_golgaji_karyawan')
+			);
+
+			$this->crud->create($this->speg_golgaji_karyawan,$arr);
+			redirect('karyawan/golgaji');
+		} else {
 			$data['get'] = $this->crud->read($this->speg_golgaji_karyawan);
 			$data['title'] = 'Semua';
 
@@ -238,10 +306,26 @@ class Karyawan extends CI_Controller {
 		}
 	}
 
+	//ABAIKAN
 	public function test(){
-		$q = $this->crud->read_fields('speg_user');
-		print_r($q);
-		$v = $q[0];
-		echo $v;
+		$z = $this->speg_data_tunjangan;
+		$a = $this->crud->read($z);
+		$n = 0;
+		echo form_open('karyawan/test2', 'class="form-horizontal form-label-left input_mask" autocomplete="off"');
+		foreach($a as $a){
+			echo "<input type='text' name='data[".$n."][id_tunjangan]' value='".$a['id_tunjangan']."' /> <input type='text' name='data[".$n."][id_karyawan]'/> <input type='text' name='data[".$n."][nominal_tunjangan_karyawan]'/> <input type='text' name='data[".$n."][tgl_trans_tunjangan_karyawan]' value='".date('Y-m-d H:i:s')."' /><br>";
+			$n++;
+		}
+		echo "<br /><button type='submit'>SUBMIT</button>";
+		echo form_close();
+		echo "<pre>";
+		print_r($a);
+		echo "</pre>";
+	}
+
+	public function test2(){
+		foreach($_POST['data'] as $d){
+			$this->crud->create($this->speg_tunjangan_karyawan,$d);
+		}
 	}
 }

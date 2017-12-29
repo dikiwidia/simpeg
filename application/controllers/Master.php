@@ -86,7 +86,8 @@ class Master extends CI_Controller {
 			);
 			$rd = $this->crud->read_cond_bool($this->speg_biodata,$arr);
 			if($rd == FALSE){redirect('master/bio');}
-			
+
+			$this->crud->delete($this->speg_user,$arr,$this->uri->segment(4));
 			$this->crud->delete($this->speg_biodata,$arr,$this->uri->segment(4));
 			redirect('master/bio');
 		} else {

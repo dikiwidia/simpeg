@@ -11,13 +11,14 @@
                 </div>
                 <div class="x_content">
                     <div class="btn-group">
-                        <a href="<?php echo base_url().'karyawan/jabstruk/new'; ?>"class="btn btn-success "><i class="fa fa-plus"></i> Baru</a>
+                        <a href="<?php echo base_url().'karyawan/golgaji/new'; ?>"class="btn btn-success "><i class="fa fa-plus"></i> Baru</a>
                     </div>
                     <table id="datatable-responsive" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Nama Karyawan</th>
+                                <th>Kode Golongan</th>
                                 <th>SK Penetapan Gaji</th>
                                 <th>Tanggal Ketetapan</th>
                                 <th>Opsi</th>
@@ -35,9 +36,17 @@
                                         $p = read_custom_id_ifempty('speg_biodata',$o,'nama_biodata','<span class="label label-danger">(Master Biodata Dihapus)</span>');
                                     }
 
+                                    
+                                    if(read_custom_numrows('speg_data_golgaji',array('kode_golgaji'=>$b['kode_golgaji'])) == 0){
+                                        $q = '<span class="label label-danger">(Master Gol. Gaji Dihapus)</span>';
+                                    }else{
+                                        $q = $b['kode_golgaji'];
+                                    }
+
                                     echo "<tr>";
                                     echo "<td>".$i++."</td>";
                                     echo "<td>".$p."</td>";
+                                    echo "<td>".$q."</td>";
                                     echo "<td>".ifempty($b['nosk_golgaji_karyawan'],'-')."</td>";
                                     echo "<td>".date_id(ifemptydate($b['t_nk_golgaji_karyawan'],'-'))."</td>";
                                     echo '<td><a class="link" href="'.base_url().'karyawan/golgaji/up/'.$b['id_golgaji_karyawan'].'">Naik</a> <a class="link" href="'.base_url().'karyawan/golgaji/delete/'.$b['id_golgaji_karyawan'].'">Hapus</a></td>';

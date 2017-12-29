@@ -46,4 +46,12 @@ function read_custom_cond($table,$arr,$get){
     return $r[0][$get];
 }
 
+function read_custom_numrows($table,$arr){
+    $ci =& get_instance();
+    $ci->load->model('crud');
+
+    $r = $ci->crud->read_numrows($table,$arr);
+    return $r;
+}
+
 ?>

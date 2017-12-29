@@ -3,6 +3,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Crud extends CI_Model {
 
+	public function nat_create($table,$arr) {
+		/*--------------------------------
+		Keterangan :
+		- $table 	= tabel tujuan
+		- $arr		= data bentuk array
+		---------------------------------*/
+		$this->db->insert($table,$arr);
+    }
+    
+	public function nat_delete($table,$arr) {
+		/*--------------------------------
+		Keterangan :
+		- $table 	= tabel tujuan
+		- $arr		= data bentuk array
+		---------------------------------*/
+		$this->db->delete($table,$arr);
+    }
+    
+	public function nat_update($table,$arr1,$arr2) {
+		/*--------------------------------
+		Keterangan :
+		- $table 	= tabel tujuan
+		- $arr1		= 'data' bentuk array
+		- $arr2		= 'where' bentuk array
+		---------------------------------*/
+		$this->db->update($table,$arr1,$arr2);
+    }
+
     public function create($table,$arr) {
 		/*--------------------------------
 		Keterangan :
