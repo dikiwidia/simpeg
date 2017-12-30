@@ -235,9 +235,16 @@ class Karyawan extends CI_Controller {
 			if($rd == FALSE){redirect('karyawan/golgaji');}else{
 				$arr_e = $this->crud->read_cond($this->speg_golgaji_karyawan,$arr);
 			}
+
+			if(read_custom_numrows($this->speg_data_golgaji,array('kode_golgaji'=>$arr_e[0]['kode_golgaji'])) == 0){
+				$idg = 0;
+			} else {
+				$idgs = $this->crud->read_query('SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev WHERE a.kode_golgaji = "'.$arr_e[0]['kode_golgaji'].'"');
+				$idg = $idgs[0]['id_golgaji'];
+			}
 			$arr_d = array(
 				'id_karyawan'			=> $arr_e[0]['id_karyawan'],
-				'kode_golgaji'			=> $arr_e[0]['kode_golgaji'],
+				'id_golgaji'			=> $idg,
 				't_nk_golgaji_karyawan'	=> $arr_e[0]['t_nk_golgaji_karyawan'],
 				'nosk_golgaji_karyawan'	=> $arr_e[0]['nosk_golgaji_karyawan']
 			); 
@@ -259,9 +266,11 @@ class Karyawan extends CI_Controller {
 			if($rd == FALSE){redirect('karyawan/golgaji');}else{
 				$arr_e = $this->crud->read_cond($this->speg_golgaji_karyawan,$arr2);
 			}
+			$idg = $this->crud->read_query('SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev WHERE a.kode_golgaji = "'.$arr_e[0]['kode_golgaji'].'"');
+
 			$arr_d = array(
 				'id_karyawan'			=> $arr_e[0]['id_karyawan'],
-				'kode_golgaji'			=> $arr_e[0]['kode_golgaji'],
+				'id_golgaji'			=> $idg[0]['id_golgaji'],
 				't_nk_golgaji_karyawan'	=> $arr_e[0]['t_nk_golgaji_karyawan'],
 				'nosk_golgaji_karyawan'	=> $arr_e[0]['nosk_golgaji_karyawan']
 			); 
@@ -282,6 +291,20 @@ class Karyawan extends CI_Controller {
 			$data['gaji_b'] = $this->crud->read_query('SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev WHERE a.kode_golgaji = "'.$sent[0]['kode_golgaji'].'"');
 
 			$this->template->display('karyawan/golgaji_update',$data);
+		} elseif($this->uri->segment(3) == "history"){
+			if(empty($this->uri->segment(4))){redirect('karyawan/golgaji');}
+			$arr = array(
+				'id_karyawan' 		=> $this->uri->segment(4),
+
+			);
+			$rd = $this->crud->read_numrows($this->speg_golgaji_karyawan,$arr);
+			if($rd == 0){redirect('karyawan/golgaji');}	
+			
+			$data['title'] = 'Riwayat';
+
+			$data['get'] = $this->crud->read_query("SELECT t1.* FROM speg_data_golgaji t1 LEFT JOIN speg_hgolgaji_karyawan t2 ON t2.id_golgaji = t1.id_golgaji WHERE t2.id_golgaji IS NULL"); 
+			//$data['get'] = $this->crud->read_cond($this->speg_hgolgaji_karyawan,$arr);
+			$this->template->display('karyawan/golgaji_history',$data);
 		} elseif($this->uri->segment(3) == "new"){
 			$data['karyawan'] = $this->crud->read_query("SELECT t1.* FROM speg_data_karyawan t1 LEFT JOIN speg_golgaji_karyawan t2 ON t2.id_karyawan = t1.id_karyawan WHERE t2.id_karyawan IS NULL");
 			$data['title'] = 'Buat Baru';

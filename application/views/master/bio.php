@@ -75,7 +75,9 @@ $(document).ready(function(){
         var UserId = $(this).data('id');
         $(".modal-footer #UserID").val( UserId );
     });
-    
+    $('.date').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
     var t = $('#datatable-responsive').DataTable({
 		"paging": true,
 		"pageLength": 10,
@@ -152,7 +154,7 @@ $(document).ready(function(){
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Lahir *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <input type="text" class="form-control" data-inputmask="'mask': '9999-99-99'" placeholder="e.g. 1995-10-26" name="tglahir_biodata" required/>
+                        <input type="text" class="form-control date" placeholder="e.g. 1995-10-26" name="tglahir_biodata" required/>
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                 </div>

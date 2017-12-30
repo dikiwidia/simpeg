@@ -9,7 +9,7 @@ class Master extends CI_Controller {
 	* NOTES   : A3
     */
 
-	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan;
+	private $speg_agama, $speg_biodata, $speg_user, $speg_data_golgaji, $speg_data_tunjangan, $speg_data_potongan, $speg_data_unit, $speg_data_jabatan, $speg_hgolgaji_karyawan, $speg_tunjangan_karyawan;
 
 	public function __construct() {
 	parent::__construct();
@@ -22,6 +22,8 @@ class Master extends CI_Controller {
 		$this->speg_data_potongan 	= 'speg_data_potongan';
 		$this->speg_data_unit	 	= 'speg_data_unit';
 		$this->speg_data_jabatan 	= 'speg_data_jabatan';
+		$this->speg_tunjangan_karyawan = 'speg_tunjangan_karyawan';
+		$this->speg_hgolgaji_karyawan  = 'speg_hgolgaji_karyawan';
     }
     
 	public function index(){
