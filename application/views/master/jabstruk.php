@@ -17,8 +17,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Jabatan</th>
                                 <th>Level Jabatan</th>
+                                <th>Nama Jabatan</th>
                                 <th>Keterangan</th>
                                 <th>Opsi</th>
                             </tr>
@@ -30,11 +30,11 @@
                                     $lj = $b['level_jabatan']/ 5 * 100;
                                     echo "<tr>";
                                     echo "<td>".$i++."</td>";
-                                    echo "<td>".$b['nama_jabatan']."</td>";
                                     echo "<td class='project_progress'>
                                     <div class='progress progress_sm'>
                                         <div class='progress-bar bg-green' role='progressbar' data-transitiongoal='".$lj."' style='width: 0%' aria-valuenow='".$lj."'></div>
                                     </div><small>Level ".$b['level_jabatan']."</small></td>";
+                                    echo "<td>".$b['nama_jabatan']."</td>";
                                     echo "<td>".$b['ket_jabatan']."</td>";
                                     echo '<td><a class="link" href="'.base_url().'master/jabstruk/edit/'.$b['id_jabatan'].'">Ubah</a> <a class="link" href="'.base_url().'master/jabstruk/delete/'.$b['id_jabatan'].'">Hapus</a></td>';
                                     echo "</tr>";
@@ -65,7 +65,7 @@ $(document).ready(function(){
             "orderable": false,
             "targets": 0
         } ],
-        "order": [[ 1, 'asc' ]]
+        "order": [[ 1, 'desc' ]]
     });
     t.on( 'order.dt search.dt', function () {
         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {

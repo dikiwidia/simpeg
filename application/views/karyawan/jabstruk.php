@@ -12,7 +12,7 @@
                 <div class="x_content">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sort"></i> Sortir <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" role="menu">
                             <?php 
                                 foreach($unit as $l){
                                     echo '<li><a href="'.base_url().'karyawan/jabstruk/sort/'.$l['kode_unit'].'">'.$l['nama_unit'].'</a></li>';

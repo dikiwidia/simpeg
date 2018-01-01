@@ -125,8 +125,8 @@ class Master extends CI_Controller {
 
 	public function gaji(){
 		if($this->uri->segment(3) == "create"){
-			if(empty($this->input->post('kode_golgaji'))){redirect('/master/gaji');}
 			$kgaji = clean($this->input->post('kode_golgaji'));
+			if(empty($kgaji)){redirect('/master/gaji');}
 			$r = $this->crud->read_numrows($this->speg_data_golgaji,array('kode_golgaji'=>$kgaji));
 			if($r >= 1){redirect('/master/gaji');}
 			$arr = array(
@@ -176,7 +176,8 @@ class Master extends CI_Controller {
 			$this->crud->delete($this->speg_data_golgaji,$arr,$this->uri->segment(4));
 			redirect('master/gaji');
 		} else {
-			$q = 'SELECT a.* FROM ( SELECT nama_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY nama_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.nama_golgaji = b.nama_golgaji AND a.rev_golgaji = b.rev';
+			$q = 'SELECT a.* FROM ( SELECT kode_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY kode_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.kode_golgaji = b.kode_golgaji AND a.rev_golgaji = b.rev ';
+			
 			$data['gaji'] = $this->crud->read_query($q);
 			$this->template->display('master/gaji',$data);
 		}
