@@ -11,7 +11,7 @@
 					</div>
 					<div class="x_content">
                         <div class="btn-group">
-                            <a href="<?php echo base_url().'trans/bgkar/new'; ?>"class="btn btn-success "><i class="fa fa-plus"></i> Baru</a>
+                            <a href="<?php echo base_url().'trans/bgkar'; ?>"class="btn btn-default "><i class="fa fa-undo"></i> Kembali</a>
                         </div>
 						<table id="datatable-responsive" class="table table-striped table-bordered">
 							<thead>

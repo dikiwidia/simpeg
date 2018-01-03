@@ -62,4 +62,14 @@ function read_custom_query($query,$get){
     return $r[0][$get];
 }
 
+function read_custom_numrows_table($table){
+    $ci =& get_instance();
+    $ci->load->model('crud');
+
+    $r = $ci->crud->read_numrows_table($table);
+    return $r;
+}
+
+
+
 ?>

@@ -28,6 +28,9 @@ $n = 0;
                                 echo '<input type="hidden" name="a['.$n.'][nama_golgaji]" value="'.$a['nama_golgaji'].'" />';                     
                                 echo '<input type="hidden" name="a['.$n.'][nominal]" value="'.$a['nominal_golgaji'].'" />';                               
                                 echo '<input type="hidden" name="a['.$n.'][tgl_transaksi]" value="'.$dt_t.'" />';
+                                echo '<input type="hidden" name="a['.$n.'][id_karyawan]" value="'.$id_k.'" />';
+                                echo '<input type="hidden" name="a['.$n.'][id_transaksi_k]" value="'.$id_t.'" />'; 
+
                                 $n++;
                             }
                             echo '<input type="hidden" name="uri" value="'.$d.'" />'; 

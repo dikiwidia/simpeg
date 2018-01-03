@@ -135,6 +135,16 @@ class Crud extends CI_Model {
 		$q = $this->db->get_where($table,$arr);
 		$r = $q->num_rows();
 		return $r;
+	}
+	
+	public function read_numrows_table($table) {
+		/*--------------------------------
+		Keterangan :
+		- $table 	= tabel tujuan
+		---------------------------------*/
+		$q = $this->db->get($table);
+		$r = $q->num_rows();
+		return $r;
     }
     
 	public function read_bool($table) {

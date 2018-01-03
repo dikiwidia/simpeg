@@ -46,7 +46,7 @@ class Master extends CI_Controller {
 				'id_agama'	 		=> $this->input->post('id_agama')
 			);
 			
-			$this->crud->create($this->speg_biodata,$arr);
+			$this->crud->nat_create($this->speg_biodata,$arr);
 			redirect('/master/bio');
 		} elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('/master/bio');}
@@ -79,7 +79,7 @@ class Master extends CI_Controller {
 				'id_biodata'		=> $this->uri->segment(4)
 			);
 			
-			$this->crud->update($this->speg_biodata,$arr1,$arr2,$this->uri->segment(4));
+			$this->crud->nat_update($this->speg_biodata,$arr1,$arr2);
 			redirect('/master/bio');
 		} elseif($this->uri->segment(3) == "delete"){
 			if(empty($this->uri->segment(4))){redirect('master/bio');}
@@ -89,8 +89,8 @@ class Master extends CI_Controller {
 			$rd = $this->crud->read_cond_bool($this->speg_biodata,$arr);
 			if($rd == FALSE){redirect('master/bio');}
 
-			$this->crud->delete($this->speg_user,$arr,$this->uri->segment(4));
-			$this->crud->delete($this->speg_biodata,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_user,$arr);
+			$this->crud->nat_delete($this->speg_biodata,$arr);
 			redirect('master/bio');
 		} else {
 			$data['agama'] 		= $this->crud->read($this->speg_agama);
@@ -115,7 +115,7 @@ class Master extends CI_Controller {
 					'status_user' 	=> 'N'
 				);
 				
-				$this->crud->create($this->speg_user,$arr);
+				$this->crud->nat_create($this->speg_user,$arr);
 				redirect('/master/bio');
 			}
 		} else {
@@ -136,7 +136,7 @@ class Master extends CI_Controller {
 				'rev_golgaji'	 	=> 0
 			);
 			
-			$this->crud->create($this->speg_data_golgaji,$arr);
+			$this->crud->nat_create($this->speg_data_golgaji,$arr);
 			redirect('/master/gaji');
 		} elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('/master/gaji');}
@@ -163,7 +163,7 @@ class Master extends CI_Controller {
 				'rev_golgaji'	 	=> $this->input->post('rev_golgaji')+1
 			);
 			
-			$this->crud->create($this->speg_data_golgaji,$arr);
+			$this->crud->nat_create($this->speg_data_golgaji,$arr);
 			redirect('/master/gaji');
 		} elseif($this->uri->segment(3) == "delete"){
 			if(empty($this->uri->segment(4))){redirect('master/gaji');}
@@ -173,7 +173,7 @@ class Master extends CI_Controller {
 			$rd = $this->crud->read_numrows($this->speg_data_golgaji,$arr);
 			if($rd == 0){redirect('master/gaji');}
 			
-			$this->crud->delete($this->speg_data_golgaji,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_data_golgaji,$arr);
 			redirect('master/gaji');
 		} else {
 			$q = 'SELECT a.* FROM ( SELECT kode_golgaji, MAX(rev_golgaji) AS rev FROM speg_data_golgaji GROUP BY kode_golgaji ) AS b INNER JOIN speg_data_golgaji AS a ON a.kode_golgaji = b.kode_golgaji AND a.rev_golgaji = b.rev ';
@@ -191,7 +191,7 @@ class Master extends CI_Controller {
 				'ket_tunjangan'		=> $this->input->post('ket_tunjangan')
 			);
 			
-			$this->crud->create($this->speg_data_tunjangan,$arr);
+			$this->crud->nat_create($this->speg_data_tunjangan,$arr);
 			redirect('/master/tunjangan');
 		} elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('/master/tunjangan');}
@@ -214,7 +214,7 @@ class Master extends CI_Controller {
 				'id_tunjangan'		=> $this->uri->segment(4)
 			);
 			
-			$this->crud->update($this->speg_data_tunjangan,$arr1,$arr2,$this->uri->segment(4));
+			$this->crud->nat_update($this->speg_data_tunjangan,$arr1,$arr2);
 			redirect('/master/tunjangan');
 		} elseif($this->uri->segment(3) == "delete"){
 			if(empty($this->uri->segment(4))){redirect('master/tunjangan');}
@@ -224,7 +224,7 @@ class Master extends CI_Controller {
 			$rd = $this->crud->read_cond_bool($this->speg_data_tunjangan,$arr);
 			if($rd == FALSE){redirect('master/tunjangan');}
 			
-			$this->crud->delete($this->speg_data_tunjangan,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_data_tunjangan,$arr);
 			redirect('master/tunjangan');
 		} else {
 			$data['get'] 	= $this->crud->read($this->speg_data_tunjangan);
@@ -241,7 +241,7 @@ class Master extends CI_Controller {
 				'ket_potongan'		=> $this->input->post('ket_potongan')
 			);
 			
-			$this->crud->create($this->speg_data_potongan,$arr);
+			$this->crud->nat_create($this->speg_data_potongan,$arr);
 			redirect('/master/potongan');
 		} elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('/master/potongan');}
@@ -264,7 +264,7 @@ class Master extends CI_Controller {
 				'id_potongan'		=> $this->uri->segment(4)
 			);
 			
-			$this->crud->update($this->speg_data_potongan,$arr1,$arr2,$this->uri->segment(4));
+			$this->crud->nat_update($this->speg_data_potongan,$arr1,$arr2);
 			redirect('/master/potongan');
 		} elseif($this->uri->segment(3) == "delete"){
 			if(empty($this->uri->segment(4))){redirect('master/potongan');}
@@ -274,7 +274,7 @@ class Master extends CI_Controller {
 			$rd = $this->crud->read_cond_bool($this->speg_data_potongan,$arr);
 			if($rd == FALSE){redirect('master/potongan');}
 			
-			$this->crud->delete($this->speg_data_potongan,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_data_potongan,$arr);
 			redirect('master/potongan');
 		} else {
 			$data['get'] 	= $this->crud->read($this->speg_data_potongan);
@@ -292,7 +292,7 @@ class Master extends CI_Controller {
 				'ket_jabatan'	=> $this->input->post('ket_jabatan')
 			);
 			
-			$this->crud->create($this->speg_data_jabatan,$arr);
+			$this->crud->nat_create($this->speg_data_jabatan,$arr);
 			redirect('/master/jabstruk');
 		} elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('/master/jabstruk');}
@@ -316,7 +316,7 @@ class Master extends CI_Controller {
 				'id_jabatan'	=> $this->uri->segment(4)
 			);
 			
-			$this->crud->update($this->speg_data_jabatan,$arr1,$arr2,$this->uri->segment(4));
+			$this->crud->nat_update($this->speg_data_jabatan,$arr1,$arr2);
 			redirect('/master/jabstruk');
 		} elseif($this->uri->segment(3) == "delete"){
 			if(empty($this->uri->segment(4))){redirect('master/jabstruk');}
@@ -326,7 +326,7 @@ class Master extends CI_Controller {
 			$rd = $this->crud->read_cond_bool($this->speg_data_jabatan,$arr);
 			if($rd == FALSE){redirect('master/jabstruk');}
 			
-			$this->crud->delete($this->speg_data_jabatan,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_data_jabatan,$arr);
 			redirect('master/jabstruk');
 		} else {
 			$data['get'] 	= $this->crud->read($this->speg_data_jabatan);
@@ -347,7 +347,7 @@ class Master extends CI_Controller {
 				'ket_unit'		=> $this->input->post('ket_unit')
 			);
 			
-			$this->crud->create($this->speg_data_unit,$arr);
+			$this->crud->nat_create($this->speg_data_unit,$arr);
 			redirect('/master/unit');
 		} elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('/master/unit');}
@@ -370,7 +370,7 @@ class Master extends CI_Controller {
 				'id_unit'		=> $this->uri->segment(4)
 			);
 			
-			$this->crud->update($this->speg_data_unit,$arr1,$arr2,$this->uri->segment(4));
+			$this->crud->nat_update($this->speg_data_unit,$arr1,$arr2);
 			redirect('/master/unit');
 		} elseif($this->uri->segment(3) == "delete"){
 			if(empty($this->uri->segment(4))){redirect('master/unit');}
@@ -380,7 +380,7 @@ class Master extends CI_Controller {
 			$rd = $this->crud->read_cond_bool($this->speg_data_unit,$arr);
 			if($rd == FALSE){redirect('master/unit');}
 			
-			$this->crud->delete($this->speg_data_unit,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_data_unit,$arr);
 			redirect('master/unit');
 		} else {
 			$data['get'] 	= $this->crud->read($this->speg_data_unit);

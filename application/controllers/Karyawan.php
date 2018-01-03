@@ -48,7 +48,7 @@ class Karyawan extends CI_Controller {
 				'status_karyawan'	=> $this->input->post('status_karyawan')
 			);
 			
-			$this->crud->create($this->speg_data_karyawan,$arr);
+			$this->crud->nat_create($this->speg_data_karyawan,$arr);
 			redirect('karyawan/angkat');
 		}elseif($this->uri->segment(3) == "update"){
 			if(empty($this->input->post('status_karyawan'))){redirect('karyawan/angkat');}
@@ -62,7 +62,7 @@ class Karyawan extends CI_Controller {
 				'id_karyawan'		=> $this->uri->segment(4)
 			);
 			
-			$this->crud->update($this->speg_data_karyawan,$arr1,$arr2,$this->uri->segment(4));
+			$this->crud->nat_update($this->speg_data_karyawan,$arr1,$arr2);
 			redirect('karyawan/angkat');
 		}elseif($this->uri->segment(3) == "delete"){
 			if(empty($this->uri->segment(4))){redirect('karyawan/angkat');}
@@ -72,7 +72,7 @@ class Karyawan extends CI_Controller {
 			$rd = $this->crud->read_cond_bool($this->speg_data_karyawan,$arr);
 			if($rd == FALSE){redirect('karyawan/angkat');}
 			
-			$this->crud->delete($this->speg_data_karyawan,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_data_karyawan,$arr);
 			redirect('karyawan/angkat');
 		}elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('karyawan/angkat');}
@@ -162,7 +162,7 @@ class Karyawan extends CI_Controller {
 				'status_jabatan_karyawan'	=> $this->input->post('status_jabatan_karyawan')
 			);
 			
-			$this->crud->create($this->speg_jabatan_karyawan,$arr);
+			$this->crud->nat_create($this->speg_jabatan_karyawan,$arr);
 			redirect('karyawan/jabstruk');
 		}elseif($this->uri->segment(3) == "update"){
 			if(empty($this->uri->segment(4))){redirect('karyawan/jabstruk');}
@@ -182,7 +182,7 @@ class Karyawan extends CI_Controller {
 				'id_jabatan_karyawan'		=> $this->uri->segment(4)
 			);
 
-			$this->crud->update($this->speg_jabatan_karyawan,$arr1,$arr2,$this->uri->segment(4));
+			$this->crud->nat_update($this->speg_jabatan_karyawan,$arr1,$arr2);
 			redirect('karyawan/jabstruk');
 		}elseif($this->uri->segment(3) == "delete"){
 			if(empty($this->uri->segment(4))){redirect('karyawan/jabstruk');}
@@ -192,7 +192,7 @@ class Karyawan extends CI_Controller {
 			$rd = $this->crud->read_cond_bool($this->speg_jabatan_karyawan,$arr);
 			if($rd == FALSE){redirect('karyawan/jabstruk');}
 			
-			$this->crud->delete($this->speg_jabatan_karyawan,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_jabatan_karyawan,$arr);
 			redirect('karyawan/jabstruk');
 		}else {
 			$data['get'] = $this->crud->read($this->speg_jabatan_karyawan);
@@ -211,7 +211,7 @@ class Karyawan extends CI_Controller {
 			$rd = $this->crud->read_cond_bool($this->speg_supervisi,$arr);
 			if($rd == FALSE){redirect('karyawan/tugas');}
 			
-			$this->crud->delete($this->speg_supervisi,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_supervisi,$arr);
 			redirect('karyawan/tugas');
 		}else {
 			$data['get'] = $this->crud->read($this->speg_supervisi);
@@ -250,7 +250,7 @@ class Karyawan extends CI_Controller {
 			); 
 			$this->crud->nat_create($this->speg_hgolgaji_karyawan,$arr_d);
 
-			$this->crud->delete($this->speg_golgaji_karyawan,$arr,$this->uri->segment(4));
+			$this->crud->nat_delete($this->speg_golgaji_karyawan,$arr);
 			redirect('karyawan/golgaji');
 		} elseif($this->uri->segment(3) == "update"){
 			if(empty($this->uri->segment(4))){redirect('karyawan/golgaji');}
@@ -276,7 +276,7 @@ class Karyawan extends CI_Controller {
 			); 
 			$this->crud->nat_create($this->speg_hgolgaji_karyawan,$arr_d);
 
-			$this->crud->update($this->speg_golgaji_karyawan,$arr1,$arr2,$this->uri->segment(4));
+			$this->crud->nat_update($this->speg_golgaji_karyawan,$arr1,$arr2);
 			redirect('karyawan/golgaji');
 		} elseif($this->uri->segment(3) == "up"){
 			if(empty($this->uri->segment(4))){redirect('karyawan/golgaji');}
@@ -319,36 +319,13 @@ class Karyawan extends CI_Controller {
 				'nosk_golgaji_karyawan'	=> $this->input->post('nosk_golgaji_karyawan')
 			);
 
-			$this->crud->create($this->speg_golgaji_karyawan,$arr);
+			$this->crud->nat_create($this->speg_golgaji_karyawan,$arr);
 			redirect('karyawan/golgaji');
 		} else {
 			$data['get'] = $this->crud->read($this->speg_golgaji_karyawan);
 			$data['title'] = 'Semua';
 
 			$this->template->display('karyawan/golgaji',$data);
-		}
-	}
-
-	//ABAIKAN
-	public function test(){
-		$z = $this->speg_data_tunjangan;
-		$a = $this->crud->read($z);
-		$n = 0;
-		echo form_open('karyawan/test2', 'class="form-horizontal form-label-left input_mask" autocomplete="off"');
-		foreach($a as $a){
-			echo "<input type='text' name='data[".$n."][id_tunjangan]' value='".$a['id_tunjangan']."' /> <input type='text' name='data[".$n."][id_karyawan]'/> <input type='text' name='data[".$n."][nominal_tunjangan_karyawan]'/> <input type='text' name='data[".$n."][tgl_trans_tunjangan_karyawan]' value='".date('Y-m-d H:i:s')."' /><br>";
-			$n++;
-		}
-		echo "<br /><button type='submit'>SUBMIT</button>";
-		echo form_close();
-		echo "<pre>";
-		print_r($a);
-		echo "</pre>";
-	}
-
-	public function test2(){
-		foreach($_POST['data'] as $d){
-			$this->crud->create($this->speg_tunjangan_karyawan,$d);
 		}
 	}
 }

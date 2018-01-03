@@ -26,8 +26,10 @@ $ses = $this->session->userdata['user']
         <ul class="nav child_menu">
           <li><a href="<?php echo $url; ?>karyawan/angkat">Data Karyawan</a></li>
           <li><a href="<?php echo $url; ?>karyawan/jabstruk">Jabatan Struktural</a></li>
+          <!-- NEW FEATURE !
           <li><a href="<?php echo $url; ?>karyawan/tugas">Data Penugasan Karyawan</a></li>
           <li><a href="<?php echo $url; ?>karyawan/cuti">Data Cuti Karyawan</a></li>
+          -->
           <li><a href="<?php echo $url; ?>karyawan/golgaji">Data Gaji Karyawan</a></li>
         </ul>
       </li>
@@ -45,64 +47,68 @@ $ses = $this->session->userdata['user']
       <li><a><i class="fa fa-exchange"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="<?php echo $url; ?>trans/bgkar">Transaksi Gaji Karyawan</a></li>
+          <!-- NEW FEATURE !
           <li><a href="<?php echo $url; ?>trans/bgdos">Transaksi Gaji Dosen</a></li>
           <li><a href="<?php echo $url; ?>trans/riwayat">Riwayat Transaksi</a></li>
+          -->
         </ul>
       </li>
       <?php } if($ses['level_user'] > 2) {?>
+      <!-- NEW FEATURE !
       <li><a><i class="fa fa-cog"></i> Pengaturan <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="<?php echo $url; ?>pengaturan/">Nama Perusahaan</a></li>
         </ul>
       </li>
+      -->
       <?php } ?>
     </ul>
   </div>
 </div>
 <!-- /sidebar menu -->
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
-        </div>
+    <!-- /menu footer buttons -->
+    <div class="sidebar-footer hidden-small">
+      <a data-toggle="tooltip" data-placement="top" title="Settings">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+      </a>
+      <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+      </a>
+      <a data-toggle="tooltip" data-placement="top" title="Lock">
+        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+      </a>
+      <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?php echo base_url(); ?>keluar">
+        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+      </a>
+    </div>
+    <!-- /menu footer buttons -->
+  </div>
+</div>
 
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
+<!-- top navigation -->
+<div class="top_nav">
+  <div class="nav_menu">
+    <nav>
+      <div class="nav toggle">
+        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+      </div>
 
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo $url ?>upload/admin.png" alt=""><?php echo $ses['nama_user']; ?>
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="<?php echo $url; ?>pengaturan"><i class="fa fa-wrench pull-right"></i>  Pengaturan</a></li>
-                    <li><a href="<?php echo $url; ?>keluar"><i class="fa fa-sign-out pull-right"></i> Keluar</a></li>
-                  </ul>
-                </li>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="">
+          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <img src="<?php echo $url ?>upload/admin.png" alt=""><?php echo $ses['nama_user']; ?>
+            <span class=" fa fa-angle-down"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-usermenu pull-right">
+            <li><a href="<?php echo $url; ?>pengaturan"><i class="fa fa-wrench pull-right"></i>  Pengaturan</a></li>
+            <li><a href="<?php echo $url; ?>keluar"><i class="fa fa-sign-out pull-right"></i> Keluar</a></li>
+          </ul>
+        </li>
 
-                
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
+        
+      </ul>
+    </nav>
+  </div>
+</div>
+<!-- /top navigation -->

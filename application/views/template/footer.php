@@ -4,7 +4,7 @@ $url = base_url();
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            Powered by Gentelella and Developed by <a href="https://www.facebook.com/dikiwidia">Moch. Diki Widianto</a> &copy; <?php echo date('Y'); ?>
           </div>
           <div class="clearfix"></div>
         </footer>
