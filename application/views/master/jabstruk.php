@@ -93,14 +93,14 @@ $(document).ready(function(){
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Jabatan *</label>
                 <div class="col-md- col-sm-5 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Masukkan Nama Jabatan" name="nama_jabatan" maxlength="50" required>
+                    <input type="text" class="form-control" placeholder="Masukkan Nama Jabatan" name="nama_jabatan" maxlength="50" required />
                 </div>
                 <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Level Jabatan *</label>
                 <div class="col-md- col-sm-5 col-xs-12">
-                    <input type="range" class="form-control" name="level_jabatan" oninput="document.getElementById('result').innerHTML = 'Level '+this.value" value="1" min="1" max="5" required>
+                    <input type="range" class="form-control" name="level_jabatan" oninput="document.getElementById('result').innerHTML = 'Level '+this.value" value="1" min="1" max="5" required />
                 </div>
                 <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><span id="result" class="label label-primary">Level 1</span></label>
             </div>

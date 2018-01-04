@@ -136,14 +136,14 @@ $(document).ready(function(){
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Kode Gaji *</label>
                     <div class="col-md- col-sm-5 col-xs-12">
-                        <input type="text" id="checking" class="form-control a" placeholder="Masukkan Kode Gaji (Tanpa Spasi)" name="kode_golgaji" maxlength="10" required>
+                        <input type="text" id="checking" class="form-control a" placeholder="Masukkan Kode Gaji (Tanpa Spasi)" name="kode_golgaji" maxlength="10" required />
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><span id="result" class="label label-primary">Wajib diisi</span></label>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Deskripsi *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Masukkan Keterangan Gaji" name="nama_golgaji" maxlength="50" required>
+                        <input type="text" class="form-control" placeholder="Masukkan Keterangan Gaji" name="nama_golgaji" maxlength="50" required />
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                 </div>

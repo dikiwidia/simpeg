@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Deskripsi Tunjangan *</label>
                             <div class="col-md- col-sm-5 col-xs-12">
-                                <input type="text" class="form-control" value="<?php echo $edit[0]['nama_tunjangan']; ?>" placeholder="Masukkan Deskripsi Tunjangan" name="nama_tunjangan" maxlength="50" required>
+                                <input type="text" class="form-control" value="<?php echo $edit[0]['nama_tunjangan']; ?>" placeholder="Masukkan Deskripsi Tunjangan" name="nama_tunjangan" maxlength="50" required />
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                         </div>

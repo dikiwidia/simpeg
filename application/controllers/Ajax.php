@@ -55,4 +55,5 @@ class Ajax extends CI_Controller {
         $r = $this->crud->read_numrows($v_1,$arr);      
         echo $r;
     }
+
 }

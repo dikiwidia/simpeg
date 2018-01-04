@@ -140,28 +140,28 @@ $(document).ready(function(){
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Lengkap *</label>
                     <div class="col-md- col-sm-5 col-xs-12">
-                        <input type="text" class="form-control a" placeholder="Masukkan Nama Lengkap (Non Gelar Akademik)" name="nama_biodata" maxlength="50" required>
+                        <input type="text" class="form-control a" placeholder="Masukkan Nama Lengkap (Non Gelar Akademik)" name="nama_biodata" maxlength="50" required />
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Tempat Lahir *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Masukkan Tempat Lahir" name="tmplahir_biodata" maxlength="50" required>
+                        <input type="text" class="form-control" placeholder="Masukkan Tempat Lahir" name="tmplahir_biodata" maxlength="50" required />
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Lahir *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <input type="text" class="form-control date" placeholder="e.g. 1995-10-26" name="tglahir_biodata" required/>
+                        <input type="text" class="form-control date" placeholder="e.g. 1995-10-26" name="tglahir_biodata" required />
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Kelamin *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <select class="form-control" name="jkelamin_biodata" required/>
+                        <select class="form-control" name="jkelamin_biodata" required>
                             <option value="L">Laki-Laki</option>
                             <option value="P">Perempuan</option>
                         </select>
@@ -171,7 +171,7 @@ $(document).ready(function(){
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Agama *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <select class="form-control" name="id_agama" required/>
+                        <select class="form-control" name="id_agama" required>
                             <?php 
                                 foreach ($agama as $agama){
                                     echo '<option value="'.$agama["id_agama"].'">'.$agama['nama_agama'].'</option>';
@@ -198,7 +198,7 @@ $(document).ready(function(){
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Alamat *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <textarea class="form-control noresize" name="alamat_biodata" rows="3" placeholder="e.g. Jl. Soekarno Hatta No. 1, Rangkasbitung, Banten"></textarea>
+                        <textarea class="form-control noresize" name="alamat_biodata" rows="3" placeholder="e.g. Jl. Soekarno Hatta No. 1, Rangkasbitung, Banten" maxlength="500"></textarea>
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Opsional</small></label>
                 </div>
@@ -230,21 +230,21 @@ $(document).ready(function(){
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Pengguna *</label>
                     <div class="col-md- col-sm-5 col-xs-12">
-                        <input type="text" id="namaPengguna" class="form-control" placeholder="Masukkan Nama Pengguna" name="nama_user" value="" maxlength="10" required>
+                        <input type="text" id="namaPengguna" class="form-control" placeholder="Masukkan Nama Pengguna" name="nama_user" value="" maxlength="10" required />
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><span id="result" class="label label-primary">Wajib diisi</span></label>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Kata Sandi *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <input type="password" class="form-control" placeholder="Masukkan Kata Sandi" name="sandi_user" maxlength="50" required>
+                        <input type="password" class="form-control" placeholder="Masukkan Kata Sandi" name="sandi_user" maxlength="50" required />
                     </div>
                     <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Hak Akses Pengguna *</label>
                     <div class="col-md-5 col-sm-5 col-xs-12">
-                        <select class="form-control" name="level_user" required/>
+                        <select class="form-control" name="level_user" required>
                             <option value="1">Pengguna Biasa</option>
                             <option value="2">Operator</option>
                         </select>

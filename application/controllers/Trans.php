@@ -99,6 +99,33 @@ class Trans extends CI_Controller {
 				$this->crud->nat_create($this->speg_potongan_karyawan,$d);
 			}
 			redirect('trans/bgkar/payroll/'.$_POST['uri']);
+		}elseif($this->uri->segment(3) == "transaction_edit"){
+			$a = $this->input->post('vtype');
+			$b = $this->input->post('vidk');
+			$c = $this->input->post('vtype_id');
+			$d = $this->input->post('vseg4');
+			$e = $this->input->post('nominal');
+
+			if(empty($a) || empty($b) || empty($c) || empty($d)){redirect('trans/bgkar');}
+			
+			$arr1 = array(
+				'nominal' => $e
+			);
+
+			if($a == "tunj"){
+				$arr2 = array(
+					'id_tunjangan_karyawan' => $c
+				);
+				$this->crud->nat_update($this->speg_tunjangan_karyawan,$arr1,$arr2);
+			}elseif($a == "ptng"){
+				$arr2 = array(
+					'id_potongan_karyawan' => $c
+				);
+				$this->crud->nat_update($this->speg_potongan_karyawan,$arr1,$arr2);
+			}else{
+				redirect('trans/bgkar');
+			}
+			redirect('trans/bgkar/payroll/'.$d.'/edit/'.$b);
 		}elseif($this->uri->segment(3) == "edit"){
 			if(empty($this->uri->segment(4))){redirect('trans/bgkar');}
 			$exp 	= explode('=',$this->uri->segment(4));
@@ -177,7 +204,35 @@ class Trans extends CI_Controller {
 				$data['b'] = $this->crud->read($this->speg_data_tunjangan);
 				$data['c'] = $this->crud->read($this->speg_data_potongan);
 				$data['d'] = $this->uri->segment(4);
+				
 				$this->template->display('trans/bgkar_pay',$data);
+			} elseif ($this->uri->segment(5) == "edit"){
+				$arg1 = $this->uri->segment(6);
+				$arrpre  = array(
+					'id_transaksi_k' => $exp[0],
+					'id_karyawan'   => $arg1,
+				); 
+				$preload1 = $this->crud->read_numrows($this->speg_gaji_karyawan,$arrpre);
+				$preload2 = $this->crud->read_numrows($this->speg_tunjangan_karyawan,$arrpre);
+				$preload3 = $this->crud->read_numrows($this->speg_potongan_karyawan,$arrpre);
+				if($preload1 == 0 || $preload2 == 0 || $preload3 == 0){redirect('trans/bgkar');}
+
+				$arg2 = $this->crud->read_cond_bool($this->speg_golgaji_karyawan,array('id_karyawan'=>$arg1));
+				if(empty($arg1) || $arg2 == FALSE){redirect('trans/bgkar');}
+				
+				$arr = array(
+					'id_karyawan' 	 => $arg1,
+					'id_transaksi_k' => $exp[0],
+				);
+				
+				$data['id_k'] = $arg1;
+				$data['id_t'] = $exp[0];
+				$data['a'] = $this->crud->read_cond($this->speg_gaji_karyawan,$arr);
+				$data['b'] = $this->crud->read_cond($this->speg_tunjangan_karyawan,$arr);
+				$data['c'] = $this->crud->read_cond($this->speg_potongan_karyawan,$arr);
+				$data['d'] = $this->uri->segment(4);
+
+				$this->template->display('trans/bgkar_pay_edit',$data);
 			} else {
 				
 				$this->template->display('trans/bgkar_payroll',$data);

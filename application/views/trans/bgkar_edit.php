@@ -16,14 +16,14 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Deskripsi *</label>
                             <div class="col-md- col-sm-5 col-xs-12">
-                                <input type="text" id="checking" class="form-control a" placeholder="Masukkan Deskripsi" value="<?php echo $edit[0]['nama_transaksi_k']; ?>" name="nama_transaksi_k" maxlength="50" required>
+                                <input type="text" id="checking" class="form-control a" placeholder="Masukkan Deskripsi" value="<?php echo $edit[0]['nama_transaksi_k']; ?>" name="nama_transaksi_k" maxlength="50" required />
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                         </div>                                                 
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Total Hari Kerja *</label>
                             <div class="col-md- col-sm-5 col-xs-12">
-                                <input type="text" id="checking" class="form-control a" placeholder="Masukkan Total Hari Kerja" value="<?php echo $edit[0]['hrkj_transaksi_k']; ?>"  name="hrkj_transaksi_k" maxlength="2" required>
+                                <input type="text" id="checking" class="form-control a" placeholder="Masukkan Total Hari Kerja" value="<?php echo $edit[0]['hrkj_transaksi_k']; ?>"  name="hrkj_transaksi_k" maxlength="2" required />
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                         </div>               

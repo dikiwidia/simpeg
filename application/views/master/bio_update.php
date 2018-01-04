@@ -75,7 +75,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Alamat *</label>
                             <div class="col-md-5 col-sm-5 col-xs-12">
-                                <textarea class="form-control noresize" name="alamat_biodata" rows="3" placeholder="e.g. Jl. Soekarno Hatta No. 1, Rangkasbitung, Banten"><?php echo $edit_bio[0]['alamat_biodata']; ?></textarea>
+                                <textarea class="form-control noresize" name="alamat_biodata" rows="3" placeholder="e.g. Jl. Soekarno Hatta No. 1, Rangkasbitung, Banten"  maxlength="500"><?php echo $edit_bio[0]['alamat_biodata']; ?></textarea>
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Opsional</small></label>
                         </div>

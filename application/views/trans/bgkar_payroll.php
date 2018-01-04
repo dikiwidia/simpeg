@@ -73,7 +73,7 @@
 										if($opt_dec1 == FALSE && $opt_dec2 == FALSE && $opt_dec3 == FALSE){
 											$opt ='<a class="last edit" href="'.base_url().'trans/bgkar/payroll/'.$this->uri->segment(4).'/pay/'.$a['id_karyawan'].'">Bayar</a>';
 										} else {
-											$opt ='<a class="last edit" href="'.base_url().'trans/bgkar/payroll/'.$this->uri->segment(4).'/reset/'.$a['id_karyawan'].'">Hapus</a>';
+											$opt ='<a class="last edit" href="'.base_url().'trans/bgkar/payroll/'.$this->uri->segment(4).'/edit/'.$a['id_karyawan'].'">Ubah</a> | <a class="last edit" href="'.base_url().'trans/bgkar/payroll/'.$this->uri->segment(4).'/reset/'.$a['id_karyawan'].'">Hapus</a>';
 										}
 
 										$ars = $n_g + $n_t - $n_p;

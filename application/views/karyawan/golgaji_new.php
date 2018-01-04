@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Penetapan *</label>
                             <div class="col-md- col-sm-5 col-xs-12">
-                                <input type="text" class="form-control date" placeholder="(YYYY-MM-DD)" name="t_nk_golgaji_karyawan" required/>
+                                <input type="text" class="form-control date" placeholder="(YYYY-MM-DD)" name="t_nk_golgaji_karyawan" required />
                             </div>
                             <label class="control-label-left col-md-4 col-sm-4 col-xs-12"><small>Wajib diisi</small></label>
                         </div>                
